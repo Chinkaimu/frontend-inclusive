@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>React小书例子</title>
+        <style>
+            button {margin-left: 10px;}
+        </style>
+    </head>
+    <body>
+        <!-- It lacked facilities for handling data consistenty across shared views. We need events to catch the data, and DOM operations to write data. -->
+        <div class="wrapper-1">
+            原生实现单个点赞功能
+            <button class="like-btn-1">
+                <span class="like-text-1">点赞</span>
+                <span>👍</span>
+            </button>
+        </div>
+
+        <div class="wrapper-2">如果需要很多点赞呢，结构自动循环创建多个</div>
+    
+        <script>
+            /**
+             * 0. 原生实现单个点赞功能
+             */
+            const button = document.querySelector('.like-btn-1');
+            const buttonText = button.querySelector('.like-text-1');
+            let isLiked = false;
+            button.addEventListener('click', () => {
+                isLiked = !isLiked;
+                if(isLiked) {
+                    buttonText.innerHTML = '取消'
+                } else {
+                    buttonText.innerHTML = '点赞';
+                }
+            }, false)
+
+            /**
+             * 【自行补充内容】从这里去推导出用类实现的优势：可以将事件准确绑定到每个节点，不需要上层管理，逻辑复杂。
+             * 思想：同模块化自行通过import管理依赖思想相似，各个小模块管理自己的行为事件，这其实是类的定义。
+             * 1. 如果需要很多点赞呢，结构自动复制循环创建多个
+             * 2. 事件就需要绑定在最上层，并且得到点击的ID单个控制。不仅如此，还需要判断点击事件落在button还是span节点，因为需要重写的只有span。
+             */
+            const buttonHtmlString = '<span class="like-text-2">点赞</span><span>👍</span>';
+            const wrapper2 = document.querySelector('.wrapper-2');
+            const isLikedArray = [];
+            for(let i = 0; i < 3; i++){
+                let tempString = '<button class="like-btn-2" id=' + i + '>' +  buttonHtmlString + '</button>';
+                isLikedArray[i] = false;
+                wrapper2.innerHTML += tempString;
+            }
+            wrapper2.addEventListener('click', (e) => {
+                //TODO: e.target单独取出来就不能使用了？？？？
+                if(e.target.className === 'like-btn-2') {
+                    spanNode = e.target.children;
+                    id = +e.target.id;
+
+                    isLikedArray[id] = !isLikedArray[id];
+                    if(isLikedArray[e.target.id]) {
+                        e.target.firstChild.innerHTML = '取消';
+                    } else {
+                        e.target.firstChild.innerHTML = '点赞';
+                    }
+                } else {
+                    let id = +e.target.parentNode.id;
+                    isLikedArray[id] = !isLikedArray[id];
+                    if(isLikedArray[id]) {
+                        e.target.innerHTML = '取消';
+                    } else {
+                        e.target.innerHTML = '点赞';
+                    }
+                }
+            })
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "name": "frontend-zero",
+  "version": "1.0.0",
+  "description": "在从事了2年多的前端工作以后，在领导、同事和朋友的指点下，工作经验、做事方式方法得到了较为理想的成长；然而在技术上没有达到预期。但是为什么，瓶颈在哪里？？？",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server",
+    "build": "webpack --mode=development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhihuibaobao/frontend-zero.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhihuibaobao/frontend-zero/issues"
+  },
+  "homepage": "https://github.com/zhihuibaobao/frontend-zero#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "path": "^0.12.7",
+    "webpack": "^4.39.1",
+    "webpack-cli": "^3.3.6",
+    "webpack-dev-server": "^3.8.0"
+  }
+}
