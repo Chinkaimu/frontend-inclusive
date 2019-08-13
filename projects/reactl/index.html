@@ -3,21 +3,24 @@
     <head>
         <title>React小书例子</title>
         <style>
-            button {margin-left: 10px;}
+            button {margin-left: 10px; margin-top: 5px;}
         </style>
     </head>
     <body>
+        <div>React组件化的一步步推导过程</div>
         <!-- It lacked facilities for handling data consistenty across shared views. We need events to catch the data, and DOM operations to write data. -->
         <div class="wrapper-1">
-            原生实现单个点赞功能
+            一、原生实现单个点赞功能
             <button class="like-btn-1">
                 <span class="like-text-1">点赞</span>
                 <span>👍</span>
             </button>
         </div>
 
-        <div class="wrapper-2">如果需要很多点赞呢，结构自动循环创建多个</div>
+        <div class="wrapper-2">二、如果需要很多点赞呢，结构自动循环创建多个</div>
     
+        <div class="wrapper-3">三、使用类，完成事物的抽象，包含属性、行为等</div>
+
         <script>
             /**
              * 0. 原生实现单个点赞功能
@@ -27,18 +30,14 @@
             let isLiked = false;
             button.addEventListener('click', () => {
                 isLiked = !isLiked;
-                if(isLiked) {
-                    buttonText.innerHTML = '取消'
-                } else {
-                    buttonText.innerHTML = '点赞';
-                }
+                buttonText.innerHTML = isLiked ? '取消' : '点赞'
             }, false)
 
             /**
              * 【自行补充内容】从这里去推导出用类实现的优势：可以将事件准确绑定到每个节点，不需要上层管理，逻辑复杂。
              * 思想：同模块化自行通过import管理依赖思想相似，各个小模块管理自己的行为事件，这其实是类的定义。
              * 1. 如果需要很多点赞呢，结构自动复制循环创建多个
-             * 2. 事件就需要绑定在最上层，并且得到点击的ID单个控制。不仅如此，还需要判断点击事件落在button还是span节点，因为需要重写的只有span。
+             * 2. 事件就需要绑定在最上层，并且得到点击的ID单个控制。不仅如此，还需要判断点击事件落在button还是span的2节点，因为需要重写的只有span。
              */
             const buttonHtmlString = '<span class="like-text-2">点赞</span><span>👍</span>';
             const wrapper2 = document.querySelector('.wrapper-2');
@@ -55,22 +54,66 @@
                     id = +e.target.id;
 
                     isLikedArray[id] = !isLikedArray[id];
-                    if(isLikedArray[e.target.id]) {
-                        e.target.firstChild.innerHTML = '取消';
-                    } else {
-                        e.target.firstChild.innerHTML = '点赞';
-                    }
+                    e.target.firstChild.innerHTML = isLikedArray[e.target.id] ? '取消' : '点赞';
                 } else {
                     let id = +e.target.parentNode.id;
                     isLikedArray[id] = !isLikedArray[id];
-                    if(isLikedArray[id]) {
-                        e.target.innerHTML = '取消';
-                    } else {
-                        e.target.innerHTML = '点赞';
-                    }
+                    e.target.parentNode.firstChild.innerHTML = isLikedArray[id] ? '取消' : '点赞';
                 }
             })
 
+            /**
+             * 使用类，面向对象开发，完成事物的抽象，包含属性、行为等。从最开始的字符串渲染到DOM结构、添加事件等，一步步完善和优化。
+             */
+            class LikeButton1 {
+                render() {
+                    return '<button class="like-btn-3"><span class="like-text-3">点赞</span><span>👍</span></button>'
+                }
+            }
+            // 优化1: 为了能够绑定事件，字符串需要转换成DOM。 添加事件，此时返回的是DOM节点，所以需要进行DOM API进行节点插入。
+            const createDOMFromString = domString => {
+                const divDOM = document.createElement('div');
+                divDOM.innerHTML = domString;
+                return divDOM;
+            }
+            class LikeButton2 {
+                render() {
+                    this.el = createDOMFromString('<button class="like-btn-3"><span class="like-text-3">点赞</span><span>👍</span></button>');
+                    this.isLiked = false;
+                    this.el.addEventListener('click', ()=>{
+                        this.isLiked = !this.isLiked;
+                        const linkText = this.el.querySelector('.like-text-3');
+                        linkText.innerHTML = this.isLiked ? '取消' : '点赞';
+                    }, false);
+                    return this.el;
+                }
+            }
+            const wrapper3 = document.querySelector('.wrapper-3');
+            const likeButtonObj1 = new LikeButton2();
+            wrapper3.appendChild(likeButtonObj1.render());            
+
+            // 优化2: 状态抽象。没有想到的点，缺乏抽象能力！！停留在上面优化1的实现方式（小书无）
+            // 抽象的意义：（1）状态统一管理，并且能够在render方法之外处理。因为绑定在this上，所以整个类可以共享状态。（2）重新调用render方法渲染的场景，不需要再次定义状态。
+            class LikeButton3 {
+                constructor() {
+                    this.state = {isLiked: false};
+                }
+
+                changeLikeText() {
+                    const likeTextNode = this.el.querySelector('.like-text-4');
+                    this.state.isLiked = !this.state.isLiked;
+                    likeTextNode.innerHTML = this.state.isLiked ? '取消' : '点赞';
+                }
+
+                render() {
+                    this.el = createDOMFromString('<button class="like-btn-4"><span class="like-text-4">点赞</span><span>👍</span></button>');
+                    this.el.addEventListener('click', () => this.changeLikeText(), false);
+                    return this.el;
+                }
+            }
+            const likeButtonObj2 = new LikeButton3();
+            wrapper3.appendChild(likeButtonObj2.render());    
+            
         </script>
     </body>
 </html>
