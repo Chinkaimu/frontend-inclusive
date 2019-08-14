@@ -19,8 +19,10 @@
 
         <div class="wrapper-2">二、如果需要很多点赞呢，结构自动循环创建多个</div>
     
-        <div class="wrapper-3">三、使用类，完成事物的抽象，包含属性、行为等</div>
+        <div class="wrapper-3">三、使用类，（1）完成事物的抽象，包含属性、行为等。（2）对象状态抽象。</div>
 
+        <div class="wrapper-4">四、DOM操作优化：(1)手动管理数据和 DOM 之间的关系会导致代码可维护性变差、容易出错。所以我们要做的是减少手动DOM操作。具体方法是只留下render方法返回新的DOM节点，
+            通过状态改变则重新调用render方法，改变渲染的内容。</div>
         <script>
             /**
              * 0. 原生实现单个点赞功能
@@ -48,17 +50,16 @@
                 wrapper2.innerHTML += tempString;
             }
             wrapper2.addEventListener('click', (e) => {
-                //TODO: e.target单独取出来就不能使用了？？？？
-                if(e.target.className === 'like-btn-2') {
-                    spanNode = e.target.children;
-                    id = +e.target.id;
+                const target = e.target;
+                if(target.className === 'like-btn-2') {
+                    id = +target.id;
 
                     isLikedArray[id] = !isLikedArray[id];
-                    e.target.firstChild.innerHTML = isLikedArray[e.target.id] ? '取消' : '点赞';
+                    target.firstChild.innerHTML = isLikedArray[id] ? '取消' : '点赞';
                 } else {
-                    let id = +e.target.parentNode.id;
+                    let id = +target.parentNode.id;
                     isLikedArray[id] = !isLikedArray[id];
-                    e.target.parentNode.firstChild.innerHTML = isLikedArray[id] ? '取消' : '点赞';
+                    target.parentNode.firstChild.innerHTML = isLikedArray[id] ? '取消' : '点赞';
                 }
             })
 
@@ -114,6 +115,40 @@
             const likeButtonObj2 = new LikeButton3();
             wrapper3.appendChild(likeButtonObj2.render());    
             
+            // 优化3: 优化DOM操作
+            class LikeButton4 {
+                constructor() {
+                    this.state = {
+                        isLiked: false,
+                    }
+                }
+
+                changeLikeText() {
+                    const oldEl = this.el;
+                    this.state = {
+                        isLiked: !this.state.isLiked,
+                    }
+                    console.log(this.state);
+                    this.el = this.render();
+                    if(this.onStateChange) this.onStateChange(oldEl, this.el);
+                }
+
+                render() {
+                    console.log('this.state', this.state);
+                    this.el = createDOMFromString(`<button class="like-btn-5"><span class="like-text-5">${this.state.isLiked ? '取消':'点赞'}</span><span>👍</span></button>`);
+                    this.el.addEventListener('click', () => this.changeLikeText(), false);
+                    return this.el;
+                }
+            }
+
+            const wrapper4 = document.querySelector('.wrapper-4');
+            const likeButtonObj3 = new LikeButton4();
+            // onStateChange是在实例化以后背设置的。 TODO: 不能设置为类的静态方法吗？？JS类的静态方法该怎么实现？？
+            likeButtonObj3.onStateChange = (oldEl, newEl) => {
+                wrapper4.insertBefore(newEl, oldEl);
+                wrapper4.removeChild(oldEl);
+            }
+            wrapper4.appendChild(likeButtonObj3.render());
         </script>
     </body>
 </html>
