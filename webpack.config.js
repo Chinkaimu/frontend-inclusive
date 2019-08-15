@@ -4,7 +4,7 @@ module.exports = {
     mode: 'development',
     entry: {
         home: "./index",
-        comment: "./projects/reactl/comment-practice/index.js"
+        practice: "./projects/reactl/practice/index.js"
     },
     output: {
         filename: "[name].bundle.js",

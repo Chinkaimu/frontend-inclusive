@@ -4,31 +4,31 @@
         <title>React Basics</title>
     </head>
     <body>
-        <h3>1、JSX and UI</h3>
+        <h3>1. JSX and UI</h3>
         <h4>conception</h4>
         <p>It's JavaScript object, describing HTML structure. We can write HTML sturcture code in js, React will help transform to JavaScript Object.</p>
         <h4>How is that JSX transformed into page.</h4>
         <image src="http://huzidaha.github.io/static/assets/img/posts/44B5EC06-EAEB-4BA2-B3DC-325703E4BA45.png"></image>
         
         <br/>
-        <h3>2、render</h3>
+        <h3>2. render</h3>
         <p>(1). A React module should at least implement render function, which return one JSX element.</p>
         <p>(2). Expression should wrapped width {} in JSX.</p>
         <p>(3). Expression in JSX can include ternary operator.</p>
         <p>(4). Element can be expressed by variables in JSX.</p>
 
         <br/>
-        <h3>3、component tree</h3>
+        <h3>3. component tree</h3>
 
         <br/>
-        <h3>4、events</h3>
+        <h3>4. events</h3>
         <p>React has implemented events, such as onClick, onKeyDown and so on. They can only affect normal html tags.</p>
         <h4>event object</h4>
         <p>(1). React event object is implemented by React.js in which the browser compatibility has been done, based in browser event object.</p>
         <p>(2). !!!"this" in event function is null, if you don't bind this to the function. Because React.js call the function delivered but not through object. </p>
         
         <br/>
-        <h3>5、State and setState</h3>
+        <h3>5. State and setState</h3>
         <p>(1). Change the state, and the component will be rerendered.</p>
         <p>(2). !!!When we call setState, the states can't be updated immediately, React.js cache the state in a queue((TODO: Is it the event queue ?)) and update the states later. If you want use the last state, function 
             'setState' provide the usage to pase a function with the param previous state value.
@@ -36,15 +36,21 @@
         <p>(3). They will be combined if one event message has called "setState" manay times.</p>
 
         <br/>
-        <h3>6、props</h3>
+        <h3>6. props</h3>
         <p>(1). Params in tag will be transformed props.</p>
         <p>(2). "defaultProps" is component's static property.</p>
         <p>(3). Props is read only property in component.</p>
 
         <br/>
-        <h3>3.Lists and Keys</h3>
+        <h3>7. Lists and Keys</h3>
         <p>(1). React.js can render every elements in an array.</p>
         <p>(2). !!Keys in array elements is important. Check the <a href="//reactjs.org/docs/lists-and-keys.html">reason</a>, diff algorithm compare the component with same id, if there are no change, elements only need to move 
             or do nothing other than delete DOM and create DOM.</p>
+
+        <br/>
+        <h3>8. Life cycle</h3>
+        <p>
+            constructor() => componentWillMount() => render() => insert DOM to page => componentDidMount() => componentWillUnmount
+        </p>
     </body>
 </html>
