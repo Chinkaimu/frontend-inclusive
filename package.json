@@ -18,8 +18,15 @@
     "url": "https://github.com/zhihuibaobao/frontend-zero/issues"
   },
   "homepage": "https://github.com/zhihuibaobao/frontend-zero#readme",
-  "dependencies": {},
+  "dependencies": {
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
+  },
   "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
     "path": "^0.12.7",
     "webpack": "^4.39.1",
     "webpack-cli": "^3.3.6",
