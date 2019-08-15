@@ -7,7 +7,7 @@
         </style>
     </head>
     <body>
-        <div>React组件化的一步步推导过程</div>
+        <h3>React组件化的推导过程</h3>
         <!-- It lacked facilities for handling data consistenty across shared views. We need events to catch the data, and DOM operations to write data. -->
         <div class="wrapper-1">
             一、原生实现单个点赞功能
@@ -21,8 +21,9 @@
     
         <div class="wrapper-3">三、使用类，（1）完成事物的抽象，包含属性、行为等。（2）对象状态抽象。</div>
 
-        <div class="wrapper-4">四、DOM操作优化：(1)手动管理数据和 DOM 之间的关系会导致代码可维护性变差、容易出错。所以我们要做的是减少手动DOM操作。具体方法是只留下render方法返回新的DOM节点，
+        <div class="wrapper-4">四、DOM操作优化：需要操作DOM就执行render来减少手动DOM操作。(1)手动管理数据和 DOM 之间的关系会导致代码可维护性变差、容易出错。所以我们要做的是减少手动DOM操作。具体方法是只留下render方法返回新的DOM节点，
             通过状态改变则重新调用render方法，改变渲染的内容。</div>
+        <div class="wrapper-5">(2)抽象出公共组件类，所有的组件都可以继承这个父类构建以完成复用。</div>
         <script>
             /**
              * 0. 原生实现单个点赞功能
@@ -128,13 +129,11 @@
                     this.state = {
                         isLiked: !this.state.isLiked,
                     }
-                    console.log(this.state);
                     this.el = this.render();
                     if(this.onStateChange) this.onStateChange(oldEl, this.el);
                 }
 
                 render() {
-                    console.log('this.state', this.state);
                     this.el = createDOMFromString(`<button class="like-btn-5"><span class="like-text-5">${this.state.isLiked ? '取消':'点赞'}</span><span>👍</span></button>`);
                     this.el.addEventListener('click', () => this.changeLikeText(), false);
                     return this.el;
@@ -149,6 +148,64 @@
                 wrapper4.removeChild(oldEl);
             }
             wrapper4.appendChild(likeButtonObj3.render());
+
+            class component {
+                constructor(props = {}) {
+                    this.props = props;
+                }
+
+                setState(state) {
+                    const oldEl = this.el;
+                    this.state = state;
+                    this._renderDOM();
+                    if(this.onStateChange) this.onStateChange(oldEl, this.el);
+                } 
+
+                _renderDOM() {
+                    this.el = createDOMFromString(this.render());
+                    // optimize:判断节点是否存在onClick等属性，取得相应的事件调用
+                    if(this.onClick) {
+                        this.el.addEventListener('click', this.onClick.bind(this), false);
+                    }
+                    return this.el;
+                }
+            }
+
+            const mount = (component, wrapper) => {
+                wrapper.appendChild(component._renderDOM());
+                component.onStateChange = (oldEl, newEl) => {
+                    wrapper.insertBefore(newEl, oldEl);
+                    wrapper.removeChild(oldEl);
+                }
+            };
+
+            class LikeButton5 extends component{
+                constructor(props) {
+                    // 获取父类的属性和方法
+                    super(props)
+                    this.state = {
+                        isLiked: false,
+                    }
+                }
+
+                // onClick事件写在这里，还未绑定到对应的节点
+                onClick() {
+                    this.setState({
+                        isLiked: !this.state.isLiked,
+                    })
+                }
+
+                render() {
+                    return `<button class="like-btn-5">
+                            <span class="like-text-5">
+                                ${this.state.isLiked ? '取消':'点赞'}
+                            </span>
+                            <span>👍</span>
+                        </button>`
+                }
+            }
+            
+            mount(new LikeButton5(), document.querySelector('.wrapper-5'));
         </script>
     </body>
 </html>
