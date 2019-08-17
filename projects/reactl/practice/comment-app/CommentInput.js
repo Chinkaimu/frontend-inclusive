@@ -8,10 +8,24 @@ export default class CommentInput extends Component {
             content: '',
         }
     }
+    componentDidMount() {
+        if(this.textarea) this.textarea.focus();
+        const username = localStorage.getItem('username');
+        if(username) {
+            this.setState({
+                username,
+            })
+        }
+    }
+
     handleStateChange(e, type) {
         const newState = {};
         newState[type] = e.target.value;
         this.setState(newState);
+    }
+
+    handleUsernameBlur(e) {
+        localStorage.setItem('username', e.target.value);
     }
 
     onSubmit() {
@@ -23,7 +37,12 @@ export default class CommentInput extends Component {
             alert('您还未输入内容');
             return;
         }
-        this.props.onSubmit({username, content});
+
+        this.props.onSubmit({
+            username, 
+            content,         
+            createdTime: +new Date()
+        });
     }
 
     render() {
@@ -32,13 +51,18 @@ export default class CommentInput extends Component {
                 <span className="comment-field-name">
                     用户名：
                 </span>
-                <div className='comment-field-input'><input value={this.state.username} onChange={(e) => this.handleStateChange(e, 'username')} /></div>
+                <div className='comment-field-input'>
+                    <input value={this.state.username} 
+                    onChange={(e) => this.handleStateChange(e, 'username')} 
+                    onBlur={(e) => this.handleUsernameBlur(e)}
+                    />
+                </div>
             </div>
             <div className="comment-field">
                 <span className='comment-field-name'>
                     评论内容：
                 </span>
-                <div className='comment-field-input'><textarea value={this.state.content} onChange={(e) => this.handleStateChange(e, 'content')} /></div>
+                <div className='comment-field-input'><textarea ref={(textarea) => {this.textarea = textarea}} value={this.state.content} onChange={(e) => this.handleStateChange(e, 'content')} /></div>
             </div>
             <div className="comment-field-button">
                 <button onClick={() => {this.onSubmit()}}>发布</button>    

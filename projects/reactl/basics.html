@@ -49,8 +49,27 @@
 
         <br/>
         <h3>8. Life cycle</h3>
-        <p>
-            constructor() => componentWillMount() => render() => insert DOM to page => componentDidMount() => componentWillUnmount
+        <p>(1). mount lifecycle: constructor() => componentWillMount() => render() => insert DOM to page => componentDidMount() => componentWillUnmount</p>
+        <p>(2). update lifecycle: willReceiveProps()/setState() => shouldComponentUpdate() => componentWillUpdate() => render() =>componentDidUpdate()</p>
+
+        <br/>
+        <h3>9. ref</h3>
+        <p>Property 'ref' is a function that's param is the DOM node. Developers can parse the DOM node to "this", and call it after node mounted.</p>
+
+        <br/>
+        <h3>10. children</h3>
+        <p>All the components inserted in the component A could be got by 'props.children' in A.</p>
+
+        <br/>
+        <h3>11. dangerouslySetInnerHTML and style
+        <p>(1). The function of property 'dangerouslySetInnerHTML' equals to 'innerHTML'.HTML can analysed by browsers. The value is object width property "__html".</p>
+        <p>(2). The 'style' property is object, too.</p>
+
+        <br/>
+        <h3>!!!12. When should a module be a indedependent component ?? </h3>
+        <p>I leant from the comment-app that one comment should be a independent component, because the create time need update by state.</p>
+        <p>I observe that repeating module should be a component for its expansibility. We maybe need add state in later. However, we don't want to parse props to 
+            many layers, which can't be ignored.
         </p>
     </body>
 </html>
