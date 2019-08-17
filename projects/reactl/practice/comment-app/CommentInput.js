@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
+import wrapWithLoadData from './wrapWithLoadData';
 
-export default class CommentInput extends Component {
+class CommentInput extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
+            username: props.data,
             content: '',
         }
     }
     componentDidMount() {
         if(this.textarea) this.textarea.focus();
-        const username = localStorage.getItem('username');
-        if(username) {
-            this.setState({
-                username,
-            })
-        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({username: nextProps.data});
     }
 
     handleStateChange(e, type) {
@@ -25,11 +24,11 @@ export default class CommentInput extends Component {
     }
 
     handleUsernameBlur(e) {
-        localStorage.setItem('username', e.target.value);
+        this.props.saveData(e.target.value);
     }
 
     onSubmit() {
-        const {username, content} = this.state;
+        const { content, username } = this.state;
         if(!username) {
             alert('您还未输入用户名');
             return;
@@ -70,3 +69,6 @@ export default class CommentInput extends Component {
         </div>;
     }
 }
+
+CommentInput = wrapWithLoadData(CommentInput, 'username');
+export default CommentInput;

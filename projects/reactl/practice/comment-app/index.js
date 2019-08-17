@@ -1,47 +1,33 @@
 import React, { Component } from 'react';
+import wrapWithLoadData from './wrapWithLoadData';
 import CommentInput from './CommentInput';
 import CommentList from './CommentList';
 
-export default class CommentApp extends Component{
+class CommentApp extends Component{
     constructor(props) {
         super(props);
-        this.state = {
-            comments: [],
-        }
-    }
-
-    componentDidMount() {
-        const comments = localStorage.getItem('comments');
-        if(comments) {
-            this.setState({
-                comments: JSON.parse(comments),
-            })
-        }
     }
 
     handleSubmit(comment) {
-        const comments = this.state.comments;
+        const comments = this.props.data;
         comments.push(comment);
-        this._saveComments(comments);
+        this.props.saveData(comments);
     }
 
     handleDelete(index) {
-        const comments = this.state.comments;
+        const comments = this.props.data;
         comments.splice(index, 1);
-        this._saveComments(comments);
-    }
-
-    _saveComments (comments) {
-        this.setState({
-            comments: comments,
-        })
-        localStorage.setItem('comments', JSON.stringify(comments));
+        this.props.saveData(comments);
     }
 
     render() {
         return <div>
             <CommentInput onSubmit={this.handleSubmit.bind(this)} />
-            <CommentList comments={this.state.comments} handleDelete={() => this.handleDelete()}/>
+            <CommentList comments={this.props.data} handleDelete={() => this.handleDelete()}/>
         </div>
     }
 }
+
+CommentApp = wrapWithLoadData(CommentApp, 'comments');
+export default CommentApp;
+
