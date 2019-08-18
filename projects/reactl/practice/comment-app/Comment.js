@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 
 export default class Comment extends Component {
+    static defaultProps = {
+        comment: {
+            username: '',
+            content: ''
+        }
+    }
     constructor() {
         super();
         this.state = {timeString: ''};
@@ -35,12 +41,12 @@ export default class Comment extends Component {
     }
 }
 
-Comment.defaultProps = {
-    comment: {
-        username: '',
-        content: ''
-    }
-}
+// Comment.defaultProps = {
+//     comment: {
+//         username: '',
+//         content: ''
+//     }
+// }
 
 
 
