@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Redux Practice</title>
+    </head>
+    <body>
+        <div>Learning how to use redux is easy, but I can't understand why should we make things so complex? We want to share states between components, the context (the global varibles) can do that. 
+            I got it until I know if do that, we can't debug which component modify the state leading to uncontrol.</br>
+            So we abstract the modification out helping us know which change the state. It means states are traceable. From pure javasrcipt to redux abstraction, what did we do ?
+        </div>
+        <p>1. States must be modified via function "dispatch".</p>
+        <div id='title'></div>
+        <div id='content'></div>
+        <p>2. Abstract state and dispatch into one object store. Function "createStore" return two functions: getState() to get the state value and dispatch() to change state. Because we can 
+                put page rerender in dispath, it need abstraction case used every state change. 
+        </p>
+        <div id='title1'></div>
+        <div id='content1'></div>
+        <p>3. Reduce the redundancy render.
+        </p>
+        <div id='title2'></div>
+        <div id='content2'></div>
+        <script>
+            // States must be modified via function "dispatch".
+            const appState = {
+                title: {
+                    text: 'React.js book',
+                    color: 'red',
+                },
+                content: {
+                    text: 'React.js contents',
+                    color: 'green',
+                }
+            }
+
+            function dispatch(action) {
+                switch(action.type) {
+                    case 'UPDATE_TITLE_TEXT':
+                        appState.title.text = action.text;
+                        break;
+                    case 'UPDATE_TITLE_COLOR':
+                        appState.title.color = action.color;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            function renderApp (appState) {
+                Object.keys(appState).forEach((item, index)=>{
+                    const container = document.getElementById(item);
+                    container.innerHTML = appState[item].text;
+                    container.style.color = appState[item].color;
+                });                
+            }
+            renderApp(appState);
+            dispatch({
+                type: 'UPDATE_TITLE_TEXT',
+                text: 'changed title'
+            });
+            dispatch({
+                type: 'UPDATE_TITLE_COLOR',
+                color: 'blue'       
+            })
+            renderApp(appState);
+
+            // Abstract store and listener
+            const appState1 = {
+                title1: {
+                    text: 'React.js title1 text',
+                    color: 'red',
+                },
+                content1: {
+                    text: 'React.js content1 text',
+                    color: 'green',
+                }
+            }
+            function stateChanger(state, action) {
+                switch(action.type) {
+                    case 'UPDATE_TITLE_TEXT':
+                        state.title1.text = action.text;
+                        break;
+                    case 'UPDATE_TITLE_COLOR':
+                        state.title1.color = action.color;
+                        break;
+                    default:
+                        break;
+                }
+            };
+
+            function createStore(state, stateChanger) {
+                const getState = () => {
+                    return state;
+                }
+
+                const listeners = [];
+                const subscribe = (listener) => {
+                    listeners.push(listener);
+                }
+                const dispatch = (action) => {
+                    stateChanger(state, action);
+                    listeners.forEach(listener => listener())
+                }
+                return { getState, dispatch, subscribe }
+            }
+
+            const store = createStore(appState1, stateChanger);
+            store.subscribe(() => renderApp(store.getState()));
+
+            renderApp(store.getState());
+            store.dispatch({type: 'UPDATE_TITLE_TEXT', text: 'changed title'});
+
+            // Promoted to no redundancy render
+            function reducer(state, action) {
+                if(!state) return {
+                    title2: {
+                        text: 'React.js book',
+                        color: 'red',
+                    },
+                    content2: {
+                        text: 'React.js contents',
+                        color: 'green',
+                    }
+                }
+                switch(action.type) {
+                    case 'UPDATE_TITLE_TEXT': return {
+                        ...state,
+                        title2: {
+                            ...state.title2,
+                            text: action.text,
+                        }
+                    }
+                    case 'UPDATE_TITLE_COLOR': return {
+                        ...state,
+                        content2: {
+                            ...state.content2,
+                            color: action.color,
+                        }
+                    }
+                    default:
+                        return state;
+                }
+            }
+
+            function createStore2(reducer) {
+                let state = null;
+                const getState = () => {return state;}
+                const listeners = [];
+                const subscribe = (listener) => {
+                    listeners.push(listener);
+                }
+                const dispatch = (action) => {
+                    state = reducer(state, action);
+                    listeners.forEach(listener => listener())
+                }
+                dispatch();
+                return { getState, dispatch, subscribe }
+            }
+
+            function renderApp2(newState, oldState = {}) {
+                if(newState === oldState) return;
+                Object.keys(newState).forEach((item, index)=>{
+                    const container = document.getElementById(item);
+                    if(oldState[item] !== newState[item]) {
+                        container.innerHTML = newState[item].text;
+                        container.style.color = newState[item].color;
+                    }
+                }); 
+            }
+
+            const store2 = createStore2(reducer);
+            let oldState = store2.getState();
+            store2.subscribe(() => {
+                const newState = store2.getState();
+                renderApp2(newState, oldState);
+                oldState = newState;
+            });
+
+            renderApp2(store2.getState()) // 首次渲染页面
+            store2.dispatch({ type: 'UPDATE_TITLE_TEXT', text: '《React.js 小书》' }) // 修改标题文本
+            store2.dispatch({ type: 'UPDATE_TITLE_COLOR', color: 'blue' }) // 修改标题颜色
+        </script>
+    </body>
+</html>

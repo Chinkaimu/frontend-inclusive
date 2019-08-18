@@ -4,7 +4,8 @@ module.exports = {
     mode: 'development',
     entry: {
         home: "./index",
-        practice: "./projects/reactl/practice/index.js"
+        practice: "./projects/react/practice/index.js",
+        practiceRedux: "./projects/react/practice-redux/index.js",
     },
     output: {
         filename: "[name].bundle.js",
