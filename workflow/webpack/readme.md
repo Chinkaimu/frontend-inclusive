@@ -9,7 +9,9 @@ The second problem is that my ideas are reasonable, but, I hadn't think further.
 Split many codes into modules for better organized and cooperation, after developed, bundle all up into a single file,. The dependencies are dealt by the modules, or we have to manage them with redundant programming. Here is the answer [Why would I use a Webpack?](http://tinselcity.net/whys/packers). I analyze the block reason is my tunnel view just in small files.
 
 # How to use it ?
+## basic process
+## basic config
+## webpack-dev-server
+## source-map
 
 # How to advanced use ? 
-
-# Learn from documentation

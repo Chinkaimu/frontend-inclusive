@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Header from './Header';
 import Content from './Content';
+import { createStore } from './react-redux';
 
 function themeReducer(state, action) {
     // 默认状态
@@ -17,21 +18,6 @@ function themeReducer(state, action) {
         default: 
             return state;
     }
-}
-
-function createStore(reducer) {
-    let state = null;
-    const listeners = [];
-    const getState = () => {return state;}
-    const subscribe = (listener) => { listeners.push(listener) };
-    const dispatch = (action) => {
-        state = reducer(state, action);
-        listeners.forEach((listener) => {
-            listener();
-        })
-    }
-    dispatch();
-    return { getState, subscribe, dispatch };
 }
 
 const store = createStore(themeReducer);
@@ -60,5 +46,5 @@ class App extends Component {
 
 ReactDOM.render(
     <App />,
-    document.getElementById('container')
+    document.getElementById('container1')
 );

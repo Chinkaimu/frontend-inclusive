@@ -8,6 +8,7 @@ module.exports = {
         practiceContext1: "./projects/react/practice-context/index1.js",
         practiceReact: "./projects/react/practice-react/index.js",
         practiceRedux: "./projects/react/practice-redux/index.js",
+        practiceRedux1: "./projects/react/practice-redux1/index.js",
     },
     output: {
         filename: "[name].bundle.js",
@@ -27,5 +28,6 @@ module.exports = {
     devServer: {
         compress: true,
         port: 9000
-    }
+    },
+    devtool: 'cheap-module-eval-source-map',
 }
