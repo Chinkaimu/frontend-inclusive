@@ -5,6 +5,7 @@ module.exports = {
     entry: {
         home: "./index",
         practiceContext: "./projects/react/practice-context/index.js",
+        practiceContext1: "./projects/react/practice-context/index1.js",
         practiceReact: "./projects/react/practice-react/index.js",
         practiceRedux: "./projects/react/practice-redux/index.js",
     },
