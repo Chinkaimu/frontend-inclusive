@@ -4,7 +4,8 @@ module.exports = {
     mode: 'development',
     entry: {
         home: "./index",
-        practice: "./projects/react/practice/index.js",
+        practiceContext: "./projects/react/practice-context/index.js",
+        practiceReact: "./projects/react/practice-react/index.js",
         practiceRedux: "./projects/react/practice-redux/index.js",
     },
     output: {
