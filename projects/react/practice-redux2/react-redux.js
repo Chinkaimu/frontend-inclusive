@@ -16,7 +16,7 @@ export const createStore = (reducer) => {
     return { getState, subscribe, dispatch };
 }
 
-export const connect = (WrappedComponent) => {
+export const connect = (mapStateToProps, mapDispatchToProps) => (WrappedComponent) => {
     class Connect extends Component {
         static contextTypes = {
             store: PropTypes.object,
@@ -29,26 +29,25 @@ export const connect = (WrappedComponent) => {
 
         componentWillMount () {
             const { store } = this.context
-            this._updateState()
-            store.subscribe(() => this._updateState())
+            this._updateProps()
+            store.subscribe(() => this._updateProps())
           }
 
-        _updateState () {
+        _updateProps () {
             const { store } = this.context
-            const state = store.getState() 
+            let stateProps = mapStateToProps ? mapStateToProps(store.getState(), this.props) : {}
+            let dispatchProps = mapDispatchToProps ? mapDispatchToProps(store.dispatch, this.props) : {}
             this.setState ({
-                ...state
+                allProps: {
+                    ...stateProps,
+                    ...dispatchProps,
+                    ...this.props,
+                }
             })  
         }
 
-        dispatch (action) {
-            const { store } = this.context
-            store.dispatch(action)
-        }
-
         render () {
-            // 注意不能丢失原先的props
-            return <WrappedComponent { ...this.state } dispatch={this.dispatch.bind(this)} {...this.props}/> 
+            return <WrappedComponent {...this.state.allProps}/> 
         }
     }
 
