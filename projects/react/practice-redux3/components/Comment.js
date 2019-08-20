@@ -33,13 +33,20 @@ export default class Comment extends Component {
         return <div className='comment'>
         <span className='comment-user'>{comment.username}</span> :
         <span className='comment-content' dangerouslySetInnerHTML={{__html: comment.content}} />
-        <button onClick={() => this.props.handleDelete(this.props.index)}>删除</button>
+        <button onClick={() => this.props.onDeleteComment(this.props.index)}>删除</button>
         <div className='comment-createdtime'>
           {this.state.timeString}
         </div>
      </div>;
     }
 }
+
+// Comment.defaultProps = {
+//     comment: {
+//         username: '',
+//         content: ''
+//     }
+// }
 
 
 
