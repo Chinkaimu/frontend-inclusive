@@ -35,8 +35,8 @@ export const connect = (mapStateToProps, mapDispatchToProps) => (WrappedComponen
 
         _updateProps () {
             const { store } = this.context
-            let stateProps = mapStateToProps ? mapStateToProps(store.getState(), this.props) : {}
-            let dispatchProps = mapDispatchToProps ? mapDispatchToProps(store.dispatch, this.props) : {}
+            let stateProps = mapStateToProps ? mapStateToProps(store.getState()) : {}
+            let dispatchProps = mapDispatchToProps ? mapDispatchToProps(store.dispatch) : {}
             this.setState ({
                 allProps: {
                     ...stateProps,
@@ -52,6 +52,29 @@ export const connect = (mapStateToProps, mapDispatchToProps) => (WrappedComponen
     }
 
     return Connect;
-} 
+}
 
-export default { createStore, connect };
+export class Provider extends Component {
+    static propTypes = {
+        store: PropTypes.object,
+        children: PropTypes.any,
+    }
+
+    static childContextTypes = {
+        store: PropTypes.object
+    }
+
+    getChildContext () {
+        return {
+            store: this.props.store
+        }
+    }
+
+    render () {
+        return (
+            <div>{this.props.children}</div>
+        )
+    }
+}
+
+export default { createStore, connect, Provider };
