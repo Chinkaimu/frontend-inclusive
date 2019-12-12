@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>浮动</title>
+        <style type="text/css">
+          /* .show-float-img {
+            float: right;
+          } */
+          .float-container {
+            border: 1px solid black;
+            /* height: 200px; 父元素高度塌陷解决方案1*/
+            /* overflow: hidden; 父元素高度塌陷解决方案2*/
+            overflow: auto;
+          }
+          /* 父元素高度塌陷解决方案3
+          .float-container::after {
+            content: '';
+            display: block;
+            clear: both;
+          } */
+          .float-container: {
+            display: inline;
+            height: 200px;
+            border: 1px solid black;
+            /* overflow: hidden; */
+          }
+          .float-item {
+            float:right;
+            border: 1px solid red;
+          }
+          .show-relative {
+            position: relative;
+            left: 100px;
+          }
+        </style>
+    </head>
+    <body>
+      <img class="show-float-img" src="https://css-tricks.com/wp-content/csstricks-uploads/print-layout.png"/>
+      浮动（float）是 CSS 定位属性。浮动元素从网页的正常流动中移出，但是保持了部分的流动性，会影响其他元素的定位（比如文字会围绕着浮动元素）。这一点与绝对定位不同，绝对定位的元素完全从文档流中脱离。浮动（float）是 CSS 定位属性。浮动元素从网页的正常流动中移出，但是保持了部分的流动性，会浮动元素从网页的正常流动中移出，但是保持了部分的流动性，会影响其他元素的定位（比如文字会围绕着浮动元素）。这一点与绝对定位不同，绝对定位的元素完全从文档流中脱离。浮动（float）是 CSS 定位属性。浮动元素从网页的正常流动中移出这一点与绝对定位不同这一点与绝对定位不同<a class="show-relative">position relative</a>
+      <!-- <img class="show-float-img" src="https://css-tricks.com/wp-content/csstricks-uploads/print-layout.png"/> -->
+        <div class="float-container">
+              <div class="float-item">fudong</div>
+        </div>
+        <a href="http://www.taobao.com">
+          <div>这里是一个link</div>
+        </a>
+    </body>
+</html>

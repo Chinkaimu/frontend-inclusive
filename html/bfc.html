@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>BFC</title>
+        <style type="text/css">
+          body {
+            width: 500px;
+          }
+          p {
+            text-indent: 2em;
+          }
+
+          .float-right {
+            display: inline;
+            float: right;
+            border: 1px solid red;
+            height: 100px;
+          }
+        </style>
+    </head>
+    <body>
+      <p>
+      BFC块格式化上下文，我的理解是用块级盒子模型格式化上下文元素。
+      W3C描述的满足BFC的条件：float的值不是none；
+      position的值不是static或relative；
+      display的值是table-cell、table-caption、inline-block、flex、或inline-flex；
+      overflow的值不是visible。
+      </p>
+      <p>
+        来看下第一条规则，float值不是none。
+        <span class="float-right">
+          here float right
+        <span>
+      </p>
+    </body>
+</html>

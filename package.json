@@ -1,7 +1,7 @@
 {
   "name": "frontend-zero",
   "version": "1.0.0",
-  "description": "在从事了2年多的前端工作以后，在领导、同事和朋友的指点下，工作经验、做事方式方法得到了较为理想的成长；然而在技术上没有达到预期。但是为什么，瓶颈在哪里？？？",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -31,6 +31,12 @@
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.6",
+    "eslint": "^6.2.1",
+    "eslint-config-standard": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
     "path": "^0.12.7",
     "webpack": "^4.39.1",
     "webpack-cli": "^3.3.6",
