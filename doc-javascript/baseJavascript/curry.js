@@ -41,7 +41,6 @@ trueCurring(sum, 1, 2)(3)
 trueCurring(sum, 1)(2)(3)
 // trueCurring(sum)(1)(2)(3)(4);
 
-
 /**
  * ES6 实现方案
  */
@@ -53,7 +52,7 @@ function newCurring (fn, ...args) {
   return function (...args2) {
     if ((args.length + args2.length) >= fn.length) {
       return fn(...args, ...args2)
-      }
+    }
 
     return newCurring(fn, ...args, ...args2)
   }
