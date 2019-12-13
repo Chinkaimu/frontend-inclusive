@@ -1,4 +1,5 @@
-JS arguments 若干问
+# JS arguments 若干问
+掘金链接：https://juejin.im/post/5df34440f265da33c14d135b
 ### 什么是arguments?属于什么类型？
 arguments 是 ***所有非箭头函数*** 内部可访问的局部变量，所有参数复制给该变量对象。它是实参，真正传入的参数，而并非定义函数时的形式参数parameter。它类似于Array，但是除了length和索引属性不具有其他数组属性。通过Object.prototype.toString.call()执行结果我们可以看到它是属于[Object Arguments]，这是一个独立类型Arguments。
 
