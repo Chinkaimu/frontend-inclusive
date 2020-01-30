@@ -15,16 +15,12 @@ console.log('CreateDog.prototype.constructor', CreateDog.prototype.constructor)
 const newCreatedDog = new CreateDog()
 console.log('newCreatedDog.age', newCreatedDog.age)
 
-
-
 function CreateDog1 () {}
 CreateDog1.prototype = Dog.prototype
 console.log('CreateDog1.prototype', CreateDog1.prototype)
 
 const newCreatedDog1 = new CreateDog1()
 console.log('newCreatedDog1.age', newCreatedDog1.age)
-
-
 
 function NewDog () {}
 // Dog instance

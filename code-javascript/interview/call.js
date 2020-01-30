@@ -16,8 +16,10 @@ const obj = {
 // 参考文档：https://juejin.im/post/5e24590ef265da3e152d27bc#heading-0
 // eslint-disable-next-line no-extend-native
 Function.prototype.myCall = function (context, ...args) {
+  // eslint-disable-next-line no-new-object
   context = (context || window) || new Object(context)
   // TODO: 复习Symbol规则
+  // eslint-disable-next-line symbol-description
   const key = Symbol()
   context[key] = this
   const result = context[key](...args)

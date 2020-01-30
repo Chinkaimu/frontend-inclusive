@@ -26,6 +26,7 @@ console.log('return Test', returnTest)
  * 1. Create a function that bind 'this' through call prototype, there will execute to bind this and then execute the original function. In this term, closure is used.
  * 2. Refresh the new function's prototype by the original function's.
  */
+// eslint-disable-next-line no-extend-native
 Function.prototype.bind2 = function (context, ...args) {
   if (typeof this !== 'function') {
     throw new Error('Function.prototype.bind - what is trying to be bound is not callable')
