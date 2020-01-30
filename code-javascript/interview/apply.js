@@ -19,9 +19,10 @@ Function.prototype.apply2 = function (context, param) {
   context = context || window || new Object(context)
   const key = Symbol()
   context[key] = this
-  const result = context[key](...param)
+  // the second parameter 
+  const result = param ? context[key](...param) : context[key]()
   delete context[key]
   return result
 }
 
-testCall.apply2(obj, [1, 2, 3])
+testCall.apply2(obj)
