@@ -29,7 +29,8 @@ console.log('return Test', returnTest)
 Function.prototype.bind2 = function (context, ...args) {
   const fn = this
   const bindFn = function (...newFnArgs) {
-    return fn.call(context, ...args, ...newFnArgs)
+    // 多次 bind??
+    return fn.call(this instanceof bindFn ? this : context, ...args, ...newFnArgs)
   }
   // The newly create object will inherit all the prototype object properties.
   bindFn.prototype = Object.create(fn.prototype)
