@@ -27,9 +27,12 @@ console.log('return Test', returnTest)
  * 2. Refresh the new function's prototype by the original function's.
  */
 Function.prototype.bind2 = function (context, ...args) {
+  if (typeof this !== 'function') {
+    throw new Error('Function.prototype.bind - what is trying to be bound is not callable')
+  }
   const fn = this
   const bindFn = function (...newFnArgs) {
-    // 多次 bind??
+    // When there occurs 'New' operation, this is instance of bindFn.
     return fn.call(this instanceof bindFn ? this : context, ...args, ...newFnArgs)
   }
   // The newly create object will inherit all the prototype object properties.
