@@ -11,6 +11,7 @@ console.log(new Person())
 // use object literal
 function createObject1 (constructor, ...res) {
   const newObject = {}
+  // eslint-disable-next-line no-proto
   newObject.__proto__ = constructor.prototype
 
   const value = constructor.call(newObject, ...res)
@@ -21,6 +22,7 @@ console.log(createObject1(Person))
 // use Object.create()
 function createObject (constructor, ...res) {
   const newObject = Object.create(null)
+  // eslint-disable-next-line no-proto
   newObject.__proto__ = constructor.prototype
 
   const value = constructor.call(newObject, ...res)
