@@ -16,3 +16,21 @@ const flatten2 = (arr) => {
   }, [])
 }
 console.log(flatten2([0, [1], [2, [3]]], 1))
+
+/**
+ * deep 控制递归深度，例子函数需要递归
+ * @param {d} arr
+ * @param {*} deep
+ */
+const flatten = (arr, deep = 1) => {
+  return arr.reduce((cur, next) => {
+    return Array.isArray(next) && deep > 1
+      ? [...cur, ...flatten(next, deep - 1)]
+      : [...cur, next]
+  }, [])
+}
+
+const arr = [1, [2], [3, [4]]]
+console.log(flatten(arr, 1)) // [1, [2], [3, [4]]]
+console.log(flatten(arr, 2)) // [1，2, [3, 4]]
+console.log(flatten(arr, 3)) // [1，2, 3, 4]
