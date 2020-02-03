@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>throttle</title>
+    <style>
+      .container {
+        position: relative;
+        width:500px;
+        border: 1px solid gray;
+        height: 300px;
+      }
+    </style>
+  </head>
+  <body class="container">
+    <div>
+      <span>时间戳节流</span>
+      <input id="input2"/>
+    </div>
+    <script>
+      /**
+      * use timestamp
+      */
+      function throttle2 (method, wait = 600) {
+        let prev = 0
+        return function (...args) {
+          const now = +new Date()
+          if (now - prev > wait) {
+            prev = now
+            return method.apply(this, args)
+          }
+        }
+      }
+      const input2 = document.getElementById('input2')
+      input2.addEventListener('keyup', throttle2(fn))</script>
+  </body>
+</html>
