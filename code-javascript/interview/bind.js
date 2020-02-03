@@ -23,6 +23,7 @@ const returnTest = TestBind(1, 2)
 console.log('return Test', returnTest)
 
 /**
+ * 思路：返回一个新的函数，函数内通过 call 传入this。 原型需要被覆盖。
  * 1. Create a function that bind 'this' through call prototype, there will execute to bind this and then execute the original function. In this term, closure is used.
  * 2. Refresh the new function's prototype by the original function's.
  */
