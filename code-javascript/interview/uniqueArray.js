@@ -1,4 +1,22 @@
 /**
+ * Use two pointer
+ * @param {*} arr
+ */
+function removeDuplicates (arr) {
+  let slowP = 0
+  for (let fastP = 0; fastP < arr.length - 1; fastP++) {
+    if (arr[fastP] !== arr[slowP]) {
+      slowP++
+      arr[slowP] = arr[fastP]
+    }
+  }
+  // 记得要把多余的数据删除
+  arr.length = slowP + 1
+  return arr
+}
+console.log(removeDuplicates([1, 1, 2, 2, 3, 4, 5, 6, 6, 7]))
+
+/**
  * Set 类似于数组，但成员值都是唯一的，无重复。
  * set + Array.from
  */
