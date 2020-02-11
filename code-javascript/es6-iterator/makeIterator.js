@@ -1,5 +1,7 @@
 const iterator = makeIterator(['a', 'b'])
 
+// Provide the interface, visit members one by one through the function next.
+// Iterator is an object that include a next function which visits the states one by one.
 function makeIterator (array) {
   let nextIndex = 0
   return {
