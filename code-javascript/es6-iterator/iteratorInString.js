@@ -1,4 +1,6 @@
-const str = new String("hi")
+// eslint-disable-next-line quotes
+// eslint-disable-next-line no-new-wrappers
+const str = new String('hi')
 
 const strIterator = str[Symbol.iterator]()
 console.log(strIterator.next())
