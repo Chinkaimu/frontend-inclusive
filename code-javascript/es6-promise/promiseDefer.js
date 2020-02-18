@@ -38,6 +38,7 @@ var ref = function (value) {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 var defer = function () {
   var pending = []
   // eslint-disable-next-line no-unused-vars

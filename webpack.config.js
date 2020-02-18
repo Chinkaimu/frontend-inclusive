@@ -10,8 +10,7 @@ module.exports = {
     practiceRedux: './code-projects/react/practice-redux/index.js',
     practiceRedux1: './code-projects/react/practice-redux1/index.js',
     practiceRedux2: './code-projects/react/practice-redux2/index.js',
-    practiceRedux3: './code-projects/react/practice-redux3/index.js',
-    promise1: './code-javascript/promise1.js'
+    practiceRedux3: './code-projects/react/practice-redux3/index.js'
   },
   output: {
     filename: '[name].bundle.js',

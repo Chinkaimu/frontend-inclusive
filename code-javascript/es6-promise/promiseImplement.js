@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /**
  * 1. new Promise时，需要传递一个 executor 执行器，执行器立刻执行
  * 2. executor 接受两个参数，分别是 resolve 和 reject

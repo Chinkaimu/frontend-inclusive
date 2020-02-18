@@ -3,6 +3,7 @@
  */
 function loadImageAsync (url) {
   return new Promise(function (resolve, reject) {
+    // eslint-disable-next-line no-undef
     var image = new Image()
 
     image.onload = function () {
