@@ -34,7 +34,11 @@ var fs = require('fs')
 // var gen = testAsync2()
 // gen.next()
 
+console.log('here', fs.readFile('file1.js', () => {}))
+
 co(function * () {
+  // yield 执行返回结果为 fs.readFile thunk 化后的只接受回调函数作为参数的函数
+  // 回调函数就是 执行next
   var data31 = yield readFile('file1.js')
   console.log('test3 data1', data31)
 
@@ -62,11 +66,13 @@ function readFile (path) {
 function co (fn) {
   var gen = fn()
 
+  // The params of fs.readFile's callback is error and data. Therefore the next will get the data, and gen.next will set the last yield result is data.
   function next (_err, data) {
     // In last loop, there have yield value data.
-    console.log('last data', data)
+    // console.log('last data', data)
     var result = gen.next(data)
     if (!result.done) {
+      // Do fs.readFile actually
       result.value(next)
     }
   }
