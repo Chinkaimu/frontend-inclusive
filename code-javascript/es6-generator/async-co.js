@@ -47,6 +47,7 @@ co(function * () {
 })
 
 /**
+ * automatic actuator for generator
  * Function readFile only need a param `path` . Developer don't have to manually deal witch callback, we should make call automatically --- use next call next.
  * Make yield value a function which can call the callback, and the call back was added by calling next yield.
  * @param {*} path
@@ -58,6 +59,7 @@ function readFile (path) {
 }
 
 /**
+ * Auto
  * Add `next` ability to call the next yield.
  * Get the first generator and call the first next.
  * The first next call yield a function that could merge the function and call back.
@@ -73,6 +75,7 @@ function co (fn) {
     var result = gen.next(data)
     if (!result.done) {
       // Do fs.readFile actually
+      // result.value is a Thunk function and next is callback
       result.value(next)
     }
   }
