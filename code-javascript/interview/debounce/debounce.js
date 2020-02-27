@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 function fn (e, addition = 'debounce') {
   setTimeout(() => console.log(addition + 'e =', e.target.value), 10)
 }
@@ -26,5 +27,20 @@ function debounce (func, wait = 500) {
      * The last event will cover the prior events.
      */
     timerId = setTimeout(() => func.apply(this, args), wait)
+  }
+}
+
+// eslint-disable-next-line camelcase
+// eslint-disable-next-line no-unused-vars
+function copyDebounce (func, wait = 500) {
+  let timer = null
+
+  return function (...args) {
+    clearTimeout(timer)
+
+    const self = this
+    timer = setTimeout(() => {
+      func.apply(self, args)
+    }, wait)
   }
 }
