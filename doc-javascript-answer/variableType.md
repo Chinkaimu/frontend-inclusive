@@ -21,3 +21,5 @@
 ## 【easy】浮点数的精度问题。
 // TODO
 
+## 【very easy】介绍下 Set、Map、WeakSet 和 WeakMap 的区别？
+参考：https://muyiy.cn/question/js/4.html
