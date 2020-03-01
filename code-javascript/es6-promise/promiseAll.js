@@ -61,7 +61,7 @@ const myPromiseAll = (arr) => {
 }
 
 myPromiseAll([1, 2, 3]).then((value) => {
-  console.log(value)
+  console.log('myPromiseAll', value)
 })
 
 // Promise.all() Promise.resolve() Promise.race() Promise.reject() 是 promise 的静态方法，如下方式添加关系
@@ -71,3 +71,30 @@ ParentFunc.child = () => {
   console.log('child')
 }
 ParentFunc.child()
+
+function promiseAllAll (arg) {
+  if (!Array.isArray(arg)) {
+    throw new Error('Error occurs: the argument must be an array')
+  }
+
+  return new Promise((resolve, reject) => {
+    let resolvedCount = 0
+    const result = new Array(arg.length)
+
+    for (let i = 0; i < arg.length; i++) {
+      (function () {
+        Promise.resolve(arg[i]).then((data) => {
+          result[i] = data
+          if (++resolvedCount === arg.length) {
+            return resolve(result)
+          }
+        }, error => {
+          return reject(error)
+        })
+      })(i)
+    }
+  })
+}
+promiseAllAll([1, 2, 3]).then((value) => {
+  console.log('promiseAllAll', value)
+})
