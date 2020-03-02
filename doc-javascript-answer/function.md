@@ -69,13 +69,49 @@ function myInstanceOf(left, right) {
 查看[代码](https://juejin.im/post/5e3e683ef265da570d734d92#heading-1)
 
 ## 【medium】实现 call 函数
-* 思路：将方法作为传入对象的属性方法调用
+* 思路：将方法作为传入对象的属性方法调用，要记得删除属性。
+```
+// 如果没有传参数，则 args 是空数组
+Function.prototype.myCall = function (context, ...args) {
+  context = (context || window) || new Object(context)
+  // 保证 key 的唯一性，所以用 Symbol
+  const key = Symbol()
+  context[key] = this
+  const result = context[key](...args)
+  delete context[key]
+  return result
+}
+```
 
 ## 【medium】实现 apply 函数
-* 思路：将方法作为传入对象的属性方法调用
+* 思路：将方法作为传入对象的属性方法调用，与 call 不同的是要判断第二个参数是否为空，否则扩展运算符运算会报错
+```
+Function.prototype.apply2 = function (context, param) {
+  const key = Symbol(1)
+  context[key] = this
+  // the second parameter
+  const result = param ? context[key](...param) : context[key]()
+  delete context[key]
+  return result
+}
+```
 
 ## 【medium】实现 bind 函数
-* 思路：内部 call, apply 的实现，不过需要返回的是一个新函数，不会立马被调用
+* 思路：内部 call 的实现，不过需要返回的是一个新函数，函数的原型需要继承原构造函数，不会立马被调用。另外需要重点注意的是 new 运算的 this 应该是不被替换的。
+ ```
+ Function.prototype.bind2 = function (context, ...args) {
+  if (typeof this !== 'function') {
+    throw new Error('what is trying be bound is not a function')
+  }
+
+  const fn = this
+  const bindFn = function (...newArgs) {
+    return fn.call(this instanceof bindFn ? this : context, ...args, ...newArgs)
+  }
+  bindFn.prototype = Object.create(fn.prototype)
+  return bindFn
+ }
+ ```
 
 ## 【medium】实现函数重载
 * 思路：根据参数个数不同，调用不同的方法。

@@ -32,6 +32,7 @@ Function.prototype.bind2 = function (context, ...args) {
   if (typeof this !== 'function') {
     throw new Error('Function.prototype.bind - what is trying to be bound is not callable')
   }
+  // fn = TestBind
   const fn = this
   // return a constructor
   const bindFn = function (...newFnArgs) {
@@ -44,7 +45,17 @@ Function.prototype.bind2 = function (context, ...args) {
 }
 
 const NewTest = TestBind.bind2(obj, 1, 2)
+// 直接调用
+NewTest(4, 5, 6)
+// 构造函数方式调用
 const newTest = new NewTest()
 console.log(newTest)
 
-console.log(NewTest.prototype === TestBind.prototype)
+console.log('newTest instanceof TestBind', newTest instanceof TestBind) // true
+console.log('Object.getPrototypeOf(newTest) === TestBind.prototype', Object.getPrototypeOf(newTest) === TestBind.prototype) // false
+console.log('Object.getPrototypeOf(Object.getPrototypeOf(newTest)) === TestBind.prototype', Object.getPrototypeOf(Object.getPrototypeOf(newTest)) === TestBind.prototype)
+
+const OriginalTest = TestBind.bind(obj, 1, 2)
+const originalTest = new OriginalTest()
+console.log('originalTest = ', originalTest)
+console.log('originalTest instanceof TestBind', originalTest instanceof TestBind) // true

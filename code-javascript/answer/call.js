@@ -1,6 +1,6 @@
 function testCall (...res) {
   console.log(this.name)
-  console.log(res)
+  console.log('res = ', res)
   this.output()
 }
 
@@ -18,7 +18,6 @@ const obj = {
 Function.prototype.myCall = function (context, ...args) {
   // eslint-disable-next-line no-new-object
   context = (context || window) || new Object(context)
-  // TODO: 复习Symbol规则
   // eslint-disable-next-line symbol-description
   const key = Symbol()
   context[key] = this
@@ -27,3 +26,4 @@ Function.prototype.myCall = function (context, ...args) {
   return result
 }
 testCall.myCall(obj, 1, 2, 3)
+testCall.myCall(obj)
