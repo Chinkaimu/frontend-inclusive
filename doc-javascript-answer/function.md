@@ -28,16 +28,55 @@
 * 参考文档：[7分钟理解JS的节流、防抖及使用场景](https://juejin.im/post/5b8de829f265da43623c4261)
 
 ## 【medium】写一个单例模式的代码。
+* 单例模式：确保一个类仅有一个实例，并提供一个访问它的全局访问点。例如 window 对象。
+```
+// 加入代理，重写构造函数
+function singleton (func) {
+  let instance
+  let handler = function (...args) {
+    if (!instance) {
+      instance = Reflect.construct(...args)
+    }
+  }
+  return instance
+}
+```
 
 ## 【medium】实现 instanceof
+* 思路：func instanceof Func 判断 func 是不是属于类(构造函数) Func，主要是判断其原型是否相等，实例的原型 __proto__ 指向构造函数的原型；另外需要注意的是需要遍历 __proto__ 原型链
+```
+function myInstanceOf(left, right) {
+  let instancePrototype = Object.getPrototypeOf(left)
+
+  while (true) {
+    if (instancePrototype === null) return false
+    if (instancePrototype === right.prototype) return true
+    instancePrototype = Object.getPrototypeOf(instancePrototype)
+  }
+}
+```
 
 ## 【medium】简单实现个 promise
+* Promise 类的核心功能 ：
+  * new Promise时，需要传递一个 executor 执行器，执行器立刻执行, 即构造函数的参数是 function , 自动给传入的 function 注入 reject, resolve 函数，立即调用执行；
+  * 这 2 个函数改变状态从 pending 到 resolved 或 rejected，一旦状态改变不允许修改；
+  * 如果调用 then 时，promise已经成功，则执行 onFulfilled，并将promise的值作为参数传递进去。
+    * 如果promise已经失败，那么执行 onRejected, 并将 promise 失败的原因作为参数传递进去。
+    * 如果promise的状态是pending，需要将onFulfilled和onRejected函数存放起来，等待状态确定后，再依次将对应的函数执行(发布订阅)
+  * then 方法返回 Promise 对象。
+  * 其他原型方法：catch, finally, done
+  * 静态方法：Promise.all(), Promise.race, Promise.resolve() Promise.reject()
+查看[代码](https://juejin.im/post/5e3e683ef265da570d734d92#heading-1)
 
 ## 【medium】实现 call 函数
+* 思路：将方法作为传入对象的属性方法调用
 
 ## 【medium】实现 apply 函数
+* 思路：将方法作为传入对象的属性方法调用
 
 ## 【medium】实现 bind 函数
+* 思路：内部 call, apply 的实现，不过需要返回的是一个新函数，不会立马被调用
 
 ## 【medium】实现函数重载
+* 思路：根据参数个数不同，调用不同的方法。
 
