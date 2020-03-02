@@ -33,6 +33,7 @@ Function.prototype.bind2 = function (context, ...args) {
     throw new Error('Function.prototype.bind - what is trying to be bound is not callable')
   }
   const fn = this
+  // return a constructor
   const bindFn = function (...newFnArgs) {
     // When there occurs 'New' operation, this is instance of bindFn.
     return fn.call(this instanceof bindFn ? this : context, ...args, ...newFnArgs)
