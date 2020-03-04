@@ -116,3 +116,7 @@ Function.prototype.apply2 = function (context, param) {
 ## 【medium】实现函数重载
 * 思路：根据参数个数不同，调用不同的方法。
 
+## 【medium】说说继承的多种实现方式。
+
+## 【medium】实现 new 运算。
+

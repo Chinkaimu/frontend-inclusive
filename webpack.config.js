@@ -17,15 +17,23 @@ module.exports = {
     publicPath: '/dist/',
     libraryTarget: 'umd'
   },
+  // loaders: allow webpack to process other types of files and convert them into valid modules that can be consumed by your application and added to dependency graph.
   module: {
     rules: [{
       test: /\.js$/,
       exclude: /node_modules/,
-      use: {
-        loader: 'babel-loader'
-      }
+      use: 'babel-loader'
+    }, {
+      test: /\.css$/,
+      use: [
+        'style-loader',
+        'css-loader'
+      ]
     }]
   },
+  // plugin:
+  plugins: [
+  ],
   watch: true,
   devServer: {
     compress: true,
