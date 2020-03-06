@@ -1,9 +1,12 @@
 const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ManifestPlugin = require('webpack-manifest-plugin')
+const webpack = require('webpack')
 
 module.exports = {
   mode: 'development',
   entry: {
-    home: './index',
+    home: './src/index',
     practiceContext: './code-projects/react/practice-context/index.js',
     practiceContext1: './code-projects/react/practice-context/index1.js',
     practiceReact: './code-projects/react/practice-react/index.js',
@@ -14,7 +17,7 @@ module.exports = {
   },
   output: {
     filename: '[name].bundle.js',
-    publicPath: '/dist/',
+    publicPath: path.resolve(__dirname, 'dist'),
     libraryTarget: 'umd'
   },
   // loaders: allow webpack to process other types of files and convert them into valid modules that can be consumed by your application and added to dependency graph.
@@ -29,15 +32,27 @@ module.exports = {
         'style-loader',
         'css-loader'
       ]
+    }, {
+      test: /\.(png|svg|jpg|jpeg|gif)$/,
+      use: [
+        'file-loader'
+      ]
     }]
   },
   // plugin:
   plugins: [
+    new HtmlWebpackPlugin({
+      title: '管理输出'
+    // filename: './index.html'
+    }),
+    new ManifestPlugin()
+    // new webpack.HotModuleReplacementPlugin()
   ],
+  // webpack 可以监听文件变化，当它们修改后会重新编译。
   watch: true,
-  devServer: {
-    compress: true,
-    port: 9000
-  },
+  // devServer: {
+  //   compress: true,
+  //   port: 9000
+  // },
   devtool: 'cheap-module-eval-source-map'
 }
