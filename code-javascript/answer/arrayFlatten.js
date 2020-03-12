@@ -8,6 +8,7 @@ console.log(flatten1([0, [1], [2, [3]]]))
  * reduce + recursion + spread operator
  */
 const flatten2 = (arr) => {
+  // reduce 上一次的结果，加上当前结果
   return arr.reduce((accumulator, currentValue) => {
     return Array.isArray(currentValue)
     // key point: spread the result
@@ -22,15 +23,15 @@ console.log(flatten2([0, [1], [2, [3]]], 1))
  * @param {d} arr
  * @param {*} deep
  */
-const flatten = (arr, deep = 1) => {
+const flatten = (arr, deep = 0) => {
   return arr.reduce((cur, next) => {
-    return Array.isArray(next) && deep > 1
+    return Array.isArray(next) && deep > 0
       ? [...cur, ...flatten(next, deep - 1)]
       : [...cur, next]
   }, [])
 }
 
 const arr = [1, [2], [3, [4]]]
-console.log(flatten(arr, 1)) // [1, [2], [3, [4]]]
-console.log(flatten(arr, 2)) // [1，2, [3, 4]]
-console.log(flatten(arr, 3)) // [1，2, 3, 4]
+console.log(flatten(arr, 0)) // [1, [2], [3, [4]]]
+console.log(flatten(arr, 1)) // [1，2, [3, 4]]
+console.log(flatten(arr, 2)) // [1，2, 3, 4]

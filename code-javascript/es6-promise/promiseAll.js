@@ -13,17 +13,15 @@ function promiseAll (promises) {
     const resolvedValues = new Array(promisesLength)
 
     for (let i = 0; i < promisesLength; i++) {
-      (function (i) {
-        Promise.resolve(promises[i]).then(function (data) {
-          resolvedCount++
-          resolvedValues[i] = data
-          if (resolvedCount === promisesLength) {
-            return resolve(resolvedValues)
-          }
-        }, function (error) {
-          return reject(error)
-        })
-      })(i)
+      Promise.resolve(promises[i]).then(function (data) {
+        resolvedCount++
+        resolvedValues[i] = data
+        if (resolvedCount === promisesLength) {
+          return resolve(resolvedValues)
+        }
+      }, function (error) {
+        return reject(error)
+      })
     }
   })
 }

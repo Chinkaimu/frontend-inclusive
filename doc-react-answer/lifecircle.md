@@ -30,7 +30,5 @@ https://juejin.im/post/5aca20c96fb9a028d700e1ce
 
 老生命周期的弊端： componentWillReceiveProps 往往用于实现通过 props 更新 state 的功能。但 componentWillReceiveProps 只在 Updating 中 props 更新时被调用，无法覆盖所有场景。比如 Mounting 时需要在 contructor 中用 props 初始化 state。故需要使用多个生命周期函数才能实现 props 更新 state 这一单一功能。而 React16 中新提出来的 getDerivedStateFromProps 函数覆盖了所有 state 更新的场景。
 
-
-
 ## 【easy】哪些生命周期不适合调用 setState，为什么？
 在初始化没必要调用；本次循环的状态数据还没有完全 ready （开始构建 虚拟DOM）或者本次渲染循环的数据已经消耗（commit 阶段）这 2 种情况，可以进入下一轮状态渲染循环的时候可以进行状态修改，否则不能修改。所以初始化 constructor 的时候，shouldComponentUpdate，componentWillUpdate，render 是不能调用 this.setState 的。

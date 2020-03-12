@@ -50,10 +50,6 @@ function newCurring (fn, ...args) {
   }
 
   return function (...args2) {
-    if ((args.length + args2.length) >= fn.length) {
-      return fn(...args, ...args2)
-    }
-
     return newCurring(fn, ...args, ...args2)
   }
 }
