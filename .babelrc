@@ -4,6 +4,8 @@
 * "presets" 顺序则是从后往前，如下先执行 "@babel/preset-react", 然后才是 "@babel/preset-env"
 * "presets" 是 Babel 插件的组合
 * "@babel/preset-env" 允许你不需要关心语法转化的情况下使用最新的JS。可以设置 targets 目标环境，模块 modules 等等
+* "@babel/preset-react" 包含了 2 个比较核心的插件： @babel/plugin-syntax-jsx 让 Babel 编译器能够正确解析出 jsx 的语法，解析完后是一段 HTML 结构，
+* 和 @babel/plugin-transform-react-jsx 将 jsx 语法变异转换成另外一种形式。默认情况下使用 React.createElement 进行转换。
 */
 {
     "presets": ["@babel/preset-env", "@babel/preset-react"],
