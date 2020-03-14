@@ -1,3 +1,10 @@
+/**
+* Babel 是一个 JavaScript 编译器，将 ECMAScript 2015+ 版本的代码转换为向后兼容的 JavaScript 语法
+* 插件在 "presets" 前运行，顺序是从前往后排序。
+* "presets" 顺序则是从后往前，如下先执行 "@babel/preset-react", 然后才是 "@babel/preset-env"
+* "presets" 是 Babel 插件的组合
+* "@babel/preset-env" 允许你不需要关心语法转化的情况下使用最新的JS。可以设置 targets 目标环境，模块 modules 等等
+*/
 {
     "presets": ["@babel/preset-env", "@babel/preset-react"],
     "plugins": ["@babel/plugin-proposal-class-properties"]
