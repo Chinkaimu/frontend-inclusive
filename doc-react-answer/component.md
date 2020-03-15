@@ -26,15 +26,18 @@
 * 1.语法上：函数组件是一个纯函数，它接收一个props对象返回一个react元素。而类组件需要去继承React.Component并且创建render函数返回react元素，这将会要更多的代码，虽然它们实现的效果相同。
 * 2.状态管理：因为函数组件是一个纯函数，你不能在组件中使用setState()，所以在 React16 以前函数组件无状态组件。React 16 后引入了 hooks 可以让函数组件拥有状态。
 * 3.生命周期：React16 之前函数组件没有生命周期周期，16 之后通过 hooks 引入了生命周期。
-* 4.调用方式：函数组件重新渲染将重新调用组件方法返回新的react元素，类组件重新渲染将new一个新的组件实例，然后调用render类方法返回react元素，这也说明为什么类组件中this是可变的。
-* 5.[Mark]获取渲染时的值：React 函数总是获取它们渲染时的值
-参考文档：https://segmentfault.com/a/1190000020861150
+* 4.`调用方式`：函数组件重新渲染将重新调用组件方法返回新的react元素，类组件重新渲染将 new 一个新的组件实例，然后调用 render 类方法返回 react 元素，这也说明为什么类组件中 this 是可变的。
+* 5.[Mark]`获取渲染时的值`：React 函数组件总是获取它们渲染时的值。类组件则会使用最新的状态，不会记录渲染时的值。
+参考文档：
+  * [react-函数组件和类组件的区别](https://segmentfault.com/a/1190000020861150).2019.10.3
+  * [How Are Function Components Different from Classes](https://overreacted.io/how-are-function-components-different-from-classes/). 2019.3.3
 
 
 ## 如何通过代码区分类组件和函数组件？（不读源码不知道吧，平常也不会去区分是不是类组件）
 * React.component 有一个原型属性 isReactComponent 是 {}，可以通过此区分累组件和函数组件。
 
 ## 什么是高阶组件，其作用是什么？
+* 接收 React 组件作为输入，输出一个增强的新 React 组件。
 
 ## 参考文档：
 [React16源码解读：开篇带你搞懂几个面试考点](https://juejin.im/post/5dff334851882579dc6f8167)
