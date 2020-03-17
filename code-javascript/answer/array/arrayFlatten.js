@@ -18,6 +18,21 @@ const flatten2 = (arr) => {
 }
 console.log(flatten2([0, [1], [2, [3]]], 1))
 
+const flatten3 = (arr) => {
+  const result = []
+  for (const item of arr) {
+    if (Array.isArray(item)) {
+      // 将一个或多个元素添加到数组的末尾
+      result.push(...flatten3(item))
+    } else {
+      result.push(item)
+    }
+  }
+  return result
+}
+
+console.log('flatten3', flatten3([0, [1], [2, [3]]], 1))
+
 /**
  * deep 控制递归深度，例子函数需要递归
  * @param {d} arr
