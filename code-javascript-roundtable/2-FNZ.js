@@ -100,3 +100,41 @@ console.log(solution([9, 4, 2, 10, 7, 8, 8, 1, 9]))
 //   }
 //   return max;
 // }
+function solution3 (A) {
+  // write your code in JavaScript (Node.js 8.9.4)
+  if (!A || !A.length) return
+
+  let longestPeriod = 1
+  let currentPeriod = 1
+  // indicates that is up(true) or down(false)
+  let upFlag = null
+
+  for (let i = 1; i < A.length; i++) {
+    if (A[i] === A[i - 1]) {
+      longestPeriod = Math.max(longestPeriod, currentPeriod)
+      currentPeriod = 1
+      upFlag = null
+    } else if (A[i] > A[i - 1]) {
+      if (upFlag === null || upFlag === false) {
+        currentPeriod++
+      } else {
+        // upFlag === true
+        longestPeriod = Math.max(longestPeriod, currentPeriod)
+        currentPeriod = 2
+      }
+      upFlag = true
+    } else if (A[i] < A[i - 1]) {
+      // A[i] < A[i - 1]
+      if (upFlag === null || upFlag === true) {
+        currentPeriod++
+      } else {
+        longestPeriod = Math.max(longestPeriod, currentPeriod)
+        currentPeriod = 2
+      }
+      upFlag = false
+    }
+  }
+  longestPeriod = Math.max(longestPeriod, currentPeriod)
+
+  return longestPeriod
+}

@@ -200,6 +200,7 @@ const ArrayTag = '[object Array]'
 const ArgsTag = '[object Arguments]'
 const ObjectTag = '[object Object]' // 非 null
 
+// eslint-disable-next-line no-unused-vars
 const iterableTags = [ObjectTag, SetTag, MapTag, ArrayTag, ArgsTag]
 
 // 不可遍历但是要特殊处理的数据类型
@@ -207,11 +208,15 @@ const FunctionTag = '[object Function]'
 const RegExpTag = '[object RegExp]'
 const DateTag = '[object Date]'
 const SymbolTag = '[object Symbol]'
+// eslint-disable-next-line no-unused-vars
 const ErrorTag = '[object Error]'
 
 // 直接返回的原始类型（调用 Object.prototype.toString() 时会自动转成包装类型）
+// eslint-disable-next-line no-unused-vars
 const NumberTag = '[object Number]'
+// eslint-disable-next-line no-unused-vars
 const BooleanTag = '[object Boolean]'
+// eslint-disable-next-line no-unused-vars
 const StringTag = '[object String]'
 
 // 判断是否对象
