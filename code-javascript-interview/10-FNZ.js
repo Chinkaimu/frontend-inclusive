@@ -100,6 +100,7 @@ console.log(solution([9, 4, 2, 10, 7, 8, 8, 1, 9]))
 //   }
 //   return max;
 // }
+// eslint-disable-next-line no-unused-vars
 function solution3 (A) {
   // write your code in JavaScript (Node.js 8.9.4)
   if (!A || !A.length) return

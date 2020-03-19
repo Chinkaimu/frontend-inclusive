@@ -2,7 +2,7 @@
  * 实现lodash中的get方法：get(target, path, defaultValue)，深度查询一个数组或者对象中的值(数组和对象不止一层嵌套)，查询不到默认返回undefined。
  */
 
-var _ = require('lodash')
+// var _ = require('lodash')
 // example
 var object = { a: [{ b: { c: 3 } }] }
 
