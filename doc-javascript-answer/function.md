@@ -29,18 +29,6 @@
 
 ## 【medium】写一个单例模式的代码。
 * 单例模式：确保一个类仅有一个实例，并提供一个访问它的全局访问点。例如 window 对象。
-```
-// 加入代理，重写构造函数
-function singleton (func) {
-  let instance
-  let handler = function (...args) {
-    if (!instance) {
-      instance = Reflect.construct(...args)
-    }
-  }
-  return instance
-}
-```
 
 ## 【medium】实现 instanceof
 * 思路：func instanceof Func 判断 func 是不是属于类(构造函数) Func，主要是判断其原型是否相等，实例的原型 __proto__ 指向构造函数的原型；另外需要注意的是需要遍历 __proto__ 原型链

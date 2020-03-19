@@ -5,13 +5,13 @@
 // Proxy 代理，重写 construct
 function singleProxy (func) {
   let instance
-  // ? 因为用了闭包所以 instance 在生成一次后会一直存在？
   const handler = {
-    construct (target, args) {
+    // construct 方法用于拦截 new 命令
+    construct: function (target, args) {
       if (!instance) {
-        // 通过 Reflect 可以方便地调用默认方法，而不需要调用函数本身默认方法并传入 target
-        // Reflect 修正了一些不合理的返回值
-        instance = Reflect.construct(func, args)
+        // 通过 Reflect 可以方便地调用默认方法
+        // 相当于 new target(...args)
+        instance = Reflect.construct(target, args)
       }
       return instance
     }
@@ -19,14 +19,16 @@ function singleProxy (func) {
   return new Proxy(func, handler)
 }
 
-const SingleClass = singleProxy(function (name) {
+const SingleClass = singleProxy(function (name, age) {
   this.name = name
+  this.age = age
 })
 
-const obj1 = new SingleClass('hello')
-const obj2 = new SingleClass('world')
+const obj1 = new SingleClass('hello', 20)
+const obj2 = new SingleClass('world', 22)
 console.log(obj1 === obj2)
 console.log(obj2.name)
+console.log(obj2.age)
 
 // 包一层匿名函数，返回闭包
 function CreateSingleton (name) {

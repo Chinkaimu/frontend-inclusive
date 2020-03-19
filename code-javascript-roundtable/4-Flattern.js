@@ -14,6 +14,7 @@ console.log('flattern1', flattern1(param))
 function flattern2 (array) {
   // TODO: 不能忘记返回数据。 array.reduce() 对数组中的每个元素执行一个由您提供的reducer函数(升序执行)，将其结果汇总为单个返回值。
   return array.reduce((accumulator, currentValue) => {
+    // 回调函数里面也需要返回数据，不要忘记
     return Array.isArray(currentValue)
       ? [...accumulator, ...flattern2(currentValue)]
       : [...accumulator, currentValue]
