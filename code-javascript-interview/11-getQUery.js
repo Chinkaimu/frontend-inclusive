@@ -3,7 +3,7 @@
  * URL 的组成成分： 协议+端口+三级域名+路径+查询参数+锚点
  * http://www.taobao.com?x=1&y=2#12 返回 {x: 1, y: 2}
  */
-function getQuery (url) {
+function getQuery (url, needDecode) {
   const result = {}
   url = url || window.location.url
 
@@ -17,7 +17,8 @@ function getQuery (url) {
 
   for (const item of querys) {
     const query = item.split('=')
-    result[query[0]] = query[1]
+    // encodeURIComponent 会对 ?:&=+,# 进行转译，encodeURI 并不会
+    result[query[0]] = needDecode ? decodeURIComponent(query[1]) : query[1]
   }
 
   return result
