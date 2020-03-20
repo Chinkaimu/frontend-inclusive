@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> 文件上传 </title>
+  </head>
+  <body>
+    <form method="POST" action = "https://my.domain.com/upload" target="upload">
+      <input type='file' value='Form 表单请选择上传文件'>
+      <button type='submit'> 提交 </button>
+    </form>
+    <!-- html 原生事件直接传入调用字符串 -->
+    <iframe style="display:none;" onload="onLoad()" id="upload" name="upload">
+    </iframe>
+    <script>
+      function onLoad() {
+        var frame = document.getElementById('upload')
+        // frame.contentWindow returns the Window object of an HTMLFrameElement. You can use the Window object to access the iframe's document and its internal DOM.
+        var content = frame.contentWindow.document.body.innerHTML
+        // 可以对值进行处理
+      }
+    </script>
+    <script src='./13-upload.js'></script>
+  </body>
+</html>
+<!-- 方式一：form标签实现无刷新上传文件 -->
+<!-- 由于form表单的提交会导致页面重定向，当我们点击选择文件，然后点击提交按钮后，
+当前页面重定向到了action所指定的页面，再加上目前很多处理文件上传的action都是基于微服务架构的RESTful接口，
+你会发现当前页面被刷新变成了接口返回的数据！在form下面写一个iframe标签，指定id和name，
+然后将form的target属性设置为这个iframe的id，这样做的目的是将form表单的提交目标指向这个iframe，
+当提交表单之后，接口返回值便会显示在iframe里面，我们把iframe隐藏起来，iframe每次加载成功后都会派发onload事件，
+而上传文件接口的返回值指向了iframe会触发它的onload事件，因此我们只需要为onload事件添加回调函数，读取iframe里面的内容（接口返回值）即可。-->
+
+<!-- form 的 target 属性取值 _blank 开启一个新页面 _self 相同的框架中打开 _parent _top 副框架中集中打开 framename 在指定的框架中打开 -->

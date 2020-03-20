@@ -38,6 +38,7 @@ function fib2 (n) {
   if (n <= 2) {
     return 1
   }
+  // 非尾递归，最后一步执行的是加法，然后返回
   return fib2(n - 2) + fib2(n - 1)
 }
 

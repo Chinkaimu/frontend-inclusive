@@ -6,6 +6,7 @@
  */
 
 // eslint-disable-next-line no-unused-vars
+// 最好不要使用，不适用于数组内存在对象的情况
 const param = [1, 2, [3, 4], [5, [6, [7]]]]
 // eslint-disable-next-line no-unused-vars
 function flattern1 (array) {
