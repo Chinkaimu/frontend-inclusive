@@ -28,7 +28,7 @@ function Person (name, age) {
 
 function createNew (Con, ...args) {
   // 使用现有的对象来提供新创建的对象的__proto__
-  // 如果你关心性能，你应该避免设置一个对象的 [[Prototype]]。相反，你应该使用 Object.create()来创建带有你想要的[[Prototype]]的新对象。
+  // 如果你关心性能，你应该避免设置一个对象的 [[Prototype]]。相反，你应该使用 Object.create()来创建带有你想要的[[Prototype]]的新对象，返回一个空对象。
   const obj = Object.create(Con.prototype)
   const result = Con.apply(obj, args)
 

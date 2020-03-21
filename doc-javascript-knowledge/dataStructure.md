@@ -1,6 +1,6 @@
-# 数据类型
+# 数据结构
 
-## 隐式类型转换
+## 数据类型的隐式类型转换
   * 转换场景：
     * if 语句和逻辑语句
     * 数学运算符
@@ -31,3 +31,6 @@
 
     * 转成 number (注意不是调用的 valueOf, valueOf 是对象返回原始值): true -> 1; false -> 0
   参考文档： [JS 的类型转换](https://johninch.github.io/Roundtable/Question-Bank/basic-grammar/variablesAndTypes4.html)
+
+## 对象的原型链
+
