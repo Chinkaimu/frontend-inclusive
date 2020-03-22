@@ -1,3 +1,5 @@
+import { resolve } from 'path'
+
 /**
  * 获取 query 查询参数，返回对象
  * URL 的组成成分： 协议+端口+三级域名+路径+查询参数+锚点
@@ -36,3 +38,20 @@ function getQueryByName (url, name) {
 }
 
 console.log(getQueryByName('http://www.taobao.com?x=1&y=2#12', 'x'))
+
+// 直接通过 location.search 获取 query
+// eslint-disable-next-line no-unused-vars
+function getQuery2 () {
+  const search = window.location.search
+  if (!search || !search.length) {
+    return null
+  }
+  const result = {}
+  const querys = search.substring(1).split('&')
+  for (const query of querys) {
+    const items = query.split('=')
+    result[items[0]] = items[1]
+  }
+  console.log(result)
+  return result
+}
