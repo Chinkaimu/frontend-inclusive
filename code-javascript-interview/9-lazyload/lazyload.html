@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>图片懒加载</title>
+  </head>
+  <body>
+    <img src="images/loading.gif" data-src="images/1.jpeg">
+    <img src="images/loading.gif" data-src="images/2.jpeg">
+    <img src="images/loading.gif" data-src="images/3.jpeg">
+    <img src="images/loading.gif" data-src="images/4.jpeg">
+    <img src="images/loading.gif" data-src="images/5.jpeg">
+    <img src="images/loading.gif" data-src="images/6.jpeg">
+    <img src="images/loading.gif" data-src="images/7.jpeg">
+    <img src="images/loading.gif" data-src="images/8.jpeg">
+    <img src="images/loading.gif" data-src="images/9.jpeg">
+    <img src="images/loading.gif" data-src="images/10.jpeg">
+    <img src="images/loading.gif" data-src="images/11.jpeg">
+    <img src="images/loading.gif" data-src="images/12.jpeg">
+    <script>
+      function lazyload () {
+        const images = document.getElementsByTagName('img')
+        const len = images.length
+        const currentShouldLoad = 0
+        
+        return function () {
+          const seeHeight = document.documentElement.clientHeight
+          const scrollHeight = document.documentElement.scrollTop || document.body.scrollTop
+
+          for (let i = 0; i < images.length; i++) {
+            if (images[i].offsetHeight < seeHeight + scrollHeight) {
+              if (images[i].getAttribute('src') === 'images/loading.gif') {
+                images[i].src = images[i].getAttribute('data-src')
+              }
+              // 块级作用域
+              n = i
+            }
+          }
+        }
+      }
+      const lazyFunc = lazyload()
+      lazyFunc()
+      window.addEventListener('scroll', lazyFunc, false)
+    </script>
+  </body>
+</html>

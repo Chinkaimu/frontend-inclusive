@@ -1,5 +1,3 @@
-import { resolve } from 'path'
-
 /**
  * 获取 query 查询参数，返回对象
  * URL 的组成成分： 协议+端口+三级域名+路径+查询参数+锚点
