@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>三栏布局</title>
+    <style>
+      body {
+        width: 1000px;
+      }
+      .header {
+        text-align: center;
+      }
+      .container {
+        display: flex;
+        text-align: center;
+      }
+      .left, .right{
+        flex: 0 0 150px;
+        background: red;
+      }
+      .center {
+        flex: 1 1 0%;
+        background: yellow;
+      }
+    </style>
+  </header>
+  <body>
+    <header>
+      <h2 class="header">I am a header here</h2>
+    </header>
+    <!-- 左右两边固定占主轴宽度，不放大，不缩小。中间使用多余空间，1 放大缩小。-->
+    <article class="container">
+      <div class="left">I am left</div>
+      <div class="center">
+        I am main        I am main
+        I am main
+        I am main
+        I am main
+        I am main
+
+        <p>height</p>
+        <p>height</p>
+        <p>height</p>
+        <p>height</p>
+        <p>height</p>
+        <p>height</p>
+      </div>
+      <div class="right">I am right</div>
+    </article>
+  </body>
+</html>

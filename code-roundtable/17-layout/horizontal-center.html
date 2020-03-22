@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>水平居中</title>
+    <style>
+      .container {
+        height: 200px;
+        /* width: 200px; */
+        border: 1px solid black;
+      }
+      .text-align {
+        text-align: center;
+      }
+      .margin .content {
+        width: 500px;
+        margin:0 auto;
+      }
+      .float-middle {
+        float: left;
+        left: 50%;
+        position: relative;
+        width: 400px;
+        margin-left: -200px;
+      }
+      .absolute-middle {
+        position: relative;
+      }
+      .absolute-middle .content {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0);
+      }
+      .flex-middle {
+        display: flex;
+        justify-content: center;
+      }
+    </style>
+  </header>
+  <body>
+    <article>
+      <div class="container text-align">
+        【1】纯文本的水平居中，使用 text-align: center
+      </div>
+      <div class="container margin">
+        <div class="content">【2】with固定。margin 水平。 问题：需要确定 with 宽度。</div>
+      </div>
+      <div class="container">
+        <div class ="float-middle">【3】浮动元素居中。问题：宽度会随着内容变化。</div>
+      </div>
+      <div class="container absolute-middle">
+        <div class="content">【4】绝对定位居中。问题：脱离文档流。 </div>
+      </div>
+      <div class="container flex-middle">
+        <span class="content">【5】flex 内容居中</span>
+      </div>
+    </article>
+  </body>
+</html>

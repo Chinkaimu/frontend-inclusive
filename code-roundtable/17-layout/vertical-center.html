@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>垂直居中</title>
+    <style>
+      .container {
+        height: 200px;
+        /* width: 200px; */
+        border: 1px solid black;
+      }
+      .line-height-middle {
+        line-height: 200px;
+      }
+      .table-middle {
+        display: table-cell;
+        vertical-align: middle;
+      }
+      .table-middle-2 {
+        display: table-cell;
+        vertical-align: middle;
+      }
+      .absolute-middle {
+        position: relative;
+      }
+      .absolute-middle .content {
+        position: relative;
+        top: 50%;
+        transform: translate(0 -50%);
+      }
+      .flex-middle {
+        display: flex;
+        align-items: center;
+      }
+    </style>
+  </header>
+  <body>
+    <article>
+      <div class="container line-height-middle">【1 文本】单行文本垂直居中，控制其行高等于容器高度。问题：只能放一行，换行会超出容器。</div>
+      <div class="container table-middle">【2】单元格垂直居中。问题：宽度会随着内容变化。</div>
+      <div class="container table-middle-2">
+        外边内容
+        <div class="content">【2块级元素】单元格垂直居中。问题：单元格会在同一行一格格向后排列。</div>
+      </div>
+      <div class="container absolute-middle">
+        <div class="content">【3块级元素】绝对定位居中。问题：脱离文档流。 </div>
+      </div>
+      <div class="container flex-middle">
+        <span class="content">【4】flex 内容居中</span>
+      </div>
+    </article>
+  </body>
+</html>
