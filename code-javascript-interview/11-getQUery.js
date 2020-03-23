@@ -5,7 +5,7 @@
  */
 function getQuery (url, needDecode) {
   const result = {}
-  url = url || window.location.url
+  url = url || window.location.href
 
   // 字符串的 match 方法检索返回一个字符串正则匹配的结果。如果使用g标志，则将返回与完整正则表达式匹配的所有结果，但不会返回捕获组。
   // 字符合集内，? 不需要转义
@@ -28,7 +28,7 @@ function getQuery (url, needDecode) {
 console.log(getQuery('http:www.baidu.com/index?name=username&age=27&pwd=zbc|123@&likes=lol&likes=beautifull girl&$id=main#flag=66'))
 
 function getQueryByName (url, name) {
-  url = url || window.location.url
+  url = url || window.location.href
   // 因为 name 是参数，所以需要先计算出正则表达式字符串，然后调用构造函数进行创建
   const reg = new RegExp('(?<=[?&])' + name + '=([^&#]*)')
   // 拿第一个捕获组
