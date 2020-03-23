@@ -53,3 +53,18 @@ function getQuery2 () {
   console.log(result)
   return result
 }
+
+
+// 通过执行 exec 逐个取出 param
+function getQuery3 (url) {
+  const reg = /[?&]([^=#&]+)=([^#&]*)/g
+  let result = null
+  const obj = {}
+
+  while (result = reg.exec(url)) {
+    obj[result[1]] = result[2]
+  }
+  return obj
+}
+
+console.log('query3', getQuery3('http:www.baidu.com/index?name=username&age=27&pwd=zbc|123@&likes=lol&likes=beautifull girl&$id=main#flag=66'))
