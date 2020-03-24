@@ -2,6 +2,9 @@ a {
   display: block;
 }
 
-#container {
-  background: url('./images/left.jpeg');
+.container {
+  font-size: 14px;
+}
+.title {
+  color: red;
 }

@@ -30,7 +30,12 @@ module.exports = {
       test: /\.css$/,
       use: [
         'style-loader',
-        'css-loader'
+        {
+          loader: 'css-loader',
+          options: {
+            modules: true
+          }
+        }
       ]
     }, {
       test: /\.(png|svg|jpg|jpeg|gif)$/,
@@ -50,9 +55,9 @@ module.exports = {
   ],
   // webpack 可以监听文件变化，当它们修改后会重新编译。
   watch: true,
-  // devServer: {
-  //   compress: true,
-  //   port: 9000
-  // },
+  devServer: {
+    compress: true,
+    port: 9000
+  },
   devtool: 'cheap-module-eval-source-map'
 }

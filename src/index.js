@@ -1,29 +1,13 @@
-import printMe from './print.js'
-import './index.css'
-// import MyImage from './images/left.jpeg'
+import Index from './index.css'
 
 function component () {
+  const html = `<div class="${Index.container}">
+    <h2 class=${Index.title}>CSS Modules</h2>
+  </div>`
+
   const element = document.createElement('div')
-  element.innerHTML = 'Hello World!'
-  element.onclick = printMe
-
-  // eslint-disable-next-line no-undef
-  // const myIcon = new Image()
-  // myIcon.src = MyImage
-  // myIcon.style.width = '40px'
-
-  // element.appendChild(myIcon)
-
+  element.innerHTML = html
   return element
 }
 
-let element = component()
-document.body.append(element)
-
-if (module.hot) {
-  module.hot.accept('./print.js', function () {
-    document.body.removeChild(element)
-    element = component()
-    document.body.appendChild(element)
-  })
-}
+document.body.append(component())

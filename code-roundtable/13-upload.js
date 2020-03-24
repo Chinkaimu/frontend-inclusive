@@ -23,7 +23,7 @@ input.onchange = function () {
   var xhr = new XMLHttpRequest()
   xhr.open('POST', 'http://localhost:8080/upload.do')
   // 设置请求头必须要 open 之后，send 之前
-  xhr.setRequestHeader()
+  xhr.setRequestHeader('content-type', 'multipart/form-data')
   xhr.send(form)
   // readyState 存有 XMLHttpRequest 的状态，0: 请求未初始化； 1: 服务器链接已建立； 2: 请求已接收； 3: 请求处理中； 4: 请求已完成，且响应就绪
   xhr.onreadystatechange = function () {

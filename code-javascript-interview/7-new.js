@@ -36,3 +36,14 @@ function createNew (Con, ...args) {
   return result instanceof Object ? result : obj
 }
 console.log(createNew(Person, 'chen', 11))
+
+// eslint-disable-next-line no-unused-vars
+function createNew1 (Construct, ...res) {
+  // TODO: 这里写错，遗漏了写 prototype。 最好先写一下要做的事情，实例的 __proto__ 等于构造函数的原型。
+  const obj = Object.create(Construct.prototype)
+
+  // 得到类属性
+  const result = Construct.apply(obj, res)
+
+  return result instanceof Construct ? result : obj
+}
