@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <title>
+        测试内容
+      </title>
+    </head>
+    <body>
+      <div id = "container"></div>
+
+      <script>
+        const child = document.createElement('div')
+        const text = document.createTextNode('I am a chil1')
+        const text = document.createTextNode('I am a child2')
+
+        child.appendChild(text)
+        
+        const container = document.getElementById('container')
+        // container.appendChild(child)
+        container.appendChild(text)
+      </script>
+    </body>
+</html>

@@ -16,7 +16,8 @@ module.exports = {
     practiceRedux3: './code-projects/react/practice-redux3/index.js'
   },
   output: {
-    filename: '[name].bundle.js',
+    // 增加 hash 取出缓存
+    filename: '[name].bundle.[hash].js',
     publicPath: path.resolve(__dirname, 'dist'),
     libraryTarget: 'umd'
   },

@@ -33,8 +33,9 @@
   * [How Are Function Components Different from Classes](https://overreacted.io/how-are-function-components-different-from-classes/). 2019.3.3
 
 
-## 如何通过代码区分类组件和函数组件？（不读源码不知道吧，平常也不会去区分是不是类组件）
-* React.component 有一个原型属性 isReactComponent 是 {}，可以通过此区分累组件和函数组件。
+## 如何通过代码区分类组件和函数组件？
+* class 和 function 的 typeof 都是 function ，不能作为判断。
+* React.component 有一个原型属性 isReactComponent 是 {}，可以通过此区分类组件和函数组件。
 
 ## 什么是高阶组件，其作用是什么？
 * 接收 React 组件作为输入，输出一个增强的新 React 组件。
