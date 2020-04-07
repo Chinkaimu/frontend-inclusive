@@ -1,7 +1,7 @@
 /**
  * JSONP 的 promise 封装
  *   关键点：
- *        要把回调函数挂载到全局，这样返回的 <script>callback()</script> 才能调用到相应的函数
+ *        要把回调函数挂载到全局，这样返回的 <script>callback(data)</script> 才能调用到相应的函数
  *        要考虑超时的情况
  *        script.onerror
  * @param {*} data

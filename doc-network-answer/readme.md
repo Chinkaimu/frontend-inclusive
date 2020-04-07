@@ -121,16 +121,20 @@
   * [Web 性能优化与 HTTP/2](https://www.kancloud.cn/digest/web-performance-http2/74825)
 
 ## 跨域的了解和解决。
-* 浏览器的同源策略规定了只能在同协议、接口、域名的情况下才能访问。
+* 浏览器的同源策略规定了只能在同协议、接口、域名的情况下才能访问。否则无法读取 cookie, localstorage, IndexDB，DOM。ajax 请求无法发送。
 * 解决方法：
-  * CORS： Access-Control-Allow-Origin
-  * JSONP
-  * postMessage: window.addEventListener()
-  * document.domain 设置父域名
+  * CORS 跨域资源共享： 请求头部会加上 origin，响应头部会加上 Access-Control-Allow-Origin。
+  * JSONP：利用了 <script> 标签不受同源限制的特性。
+  * HTML 5 的 iframeB.postMessage('data', 'http://B.com'), windowB.addEventListener('message')。存在安全隐患，其他模块也可以去监听得到数据。
+  * document.domain 设置相同的父域名，实现不同子域名自建的跨域通信。
+  * Hash： 利用“hash 的变动不会触发页面刷新”的原理。父页面获取 iframe 的 src，将哈希数据加入。子页面 window.onhashchange = function () {} 进行监听。
+  * 服务端代理，nginx 反向代理或者 nodejs 代理请求。开发环境下 webpack 有 http-proxy-middleware 可以在 devServer 中配置 proxy，config.dev.proxyTable 实现代理跨域。
+  * websocket 服务端主动推送
+
 
 ## CORS 的返回头、CORS 预请求，什么时候会出发预请求。
-* CORS 跨域资源共享：新增 HTTP 首部字段，允许服务器声明哪些圆头通过浏览器有权限访问哪些资源。
-* 另外，规范要求，哪些可能对服务器数据产生副作用的 HTTP 请求方法（特别是 GET 意外的请求，或者搭配某些 MIME 类型的 POST 请求），浏览器首先使用 OPTIONS 发起一个预检请求，从而获知服务器是否允许该跨域请求。服务器确认允许之后，才发起实际的 HTTP 请求。在预检请求的返回中，服务器也可以同志客户端，是否需要携带身份凭证。
+* CORS 跨域资源共享：浏览器识别 ajax 发送了跨域请求的时候，会将其拦截并在 http 头中加一个 origin 字段，允许跨域通信。 实现 CORS 通信的关键是服务器，实现 CORS 接口。
+* 可能对服务器数据产生副作用的 HTTP 请求方法（特别是 GET 以外的请求，或者搭配某些 MIME 类型的 POST 请求），浏览器首先使用 OPTIONS 发起一个预检请求，从而获知服务器是否允许该跨域请求。服务器确认允许之后，才发起实际的 HTTP 请求。在预检请求的返回中，服务器也可以通知客户端是否需要携带身份凭证。
 * 简单请求不会触发 CORS 预检请求。
 * 参考文档：
   * [HTTP 访问控制（CORS）](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS)

@@ -5,6 +5,7 @@
     </head>
     <body>
         <div id = "container"></div>
+        <button id="click">click</button>
         <ul>
             <a href='./code-projects/react/index.html'>React小书</a>
             <a href='./code-html/float.html'>html/Float</a>
@@ -12,5 +13,14 @@
             <a href="./code-roundtable/17-layout/">Flex 布局</a>
         </ul>
         <script src="/dist/home.bundle.js"></script>
+        <script>
+            var element = document.getElementById('click');
+            var id = element.id;
+
+            element.onclick = function () {
+                alert(id);
+            }
+            element = null;
+        </script>
     </body>
 </html>

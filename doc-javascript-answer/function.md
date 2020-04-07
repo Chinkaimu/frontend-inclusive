@@ -106,5 +106,8 @@ Function.prototype.apply2 = function (context, param) {
 
 ## 【medium】说说继承的多种实现方式。
 
-## 【medium】实现 new 运算。
+## 实现 new 运算。
 
+## 什么时候会造成内存泄漏？
+* 闭包会引用包含函数的整个活动对象，如果该活动对象中包含有引用类型例如 element，即使这个 element 不在闭包中被引用，包含函数的活动对象中仍然保存着 element 的引用，此时 element 就无法回收。
+《JS 高级程序设计 P183》
