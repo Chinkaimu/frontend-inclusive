@@ -136,5 +136,28 @@
 * CORS 跨域资源共享：浏览器识别 ajax 发送了跨域请求的时候，会将其拦截并在 http 头中加一个 origin 字段，允许跨域通信。 实现 CORS 通信的关键是服务器，实现 CORS 接口。
 * 可能对服务器数据产生副作用的 HTTP 请求方法（特别是 GET 以外的请求，或者搭配某些 MIME 类型的 POST 请求），浏览器首先使用 OPTIONS 发起一个预检请求，从而获知服务器是否允许该跨域请求。服务器确认允许之后，才发起实际的 HTTP 请求。在预检请求的返回中，服务器也可以通知客户端是否需要携带身份凭证。
 * 简单请求不会触发 CORS 预检请求。
+  * 设置预检请求结果缓存时间来减少发起OPTIONS请求的次数。响应请求中设置字段 Access-Control-Max-Age: number; 数值代表preflight request 的返回结果（即 Access-Control-Allow-Methods 和Access-Control-Allow-Headers 提供的信息）可以被缓存多久
 * 参考文档：
   * [HTTP 访问控制（CORS）](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS)
+  * [CORS 跨域资源共享](https://johninch.github.io/Roundtable/Question-Bank/communication/cors.html)
+
+## Cookie 和 Session 的区别？
+* Cookie 是状态管理机制，主要用于存储简单的用户信息，数据保存在客户端，发送请求的时候会放在请求头中传给服务端。
+* Session 是会话状态，存储会话信息，数据保存在服务端，cookie 是实现 session 会话的手段之一，还可以用重写 URL、隐藏表单域。
+
+## Session 如果不用 Cookie 实现，还有什么实现方式？
+* URL 重写，所有页面 URL 都需要是动态生成的。
+* 隐藏表单域，适用于每个页面请求由表单提交动态生成。
+
+## Cookie 与 Web Storage 的区别
+* Cookie 是状态管理机制，保存在客户端浏览器的小段文本信息，每个 domain 最多只能有 30或50 条 Cookie，每个长度不能超过 4KB，否则会被截掉。
+* Web Storage 可以让 Web 页面在客户端浏览器以键值对的形式在本地保存数据。
+  * 存储空间：比 cookie 的存储空间更大，并且每个子域有独立的存储空间
+  * 服务器：内容不会发送到服务器
+  * 接口：更多丰富医用的接口
+  * 过期：localStorage 不会过期。
+* 共同点：两者都存储在客户端。本地数据未加密不是很安全。
+
+## Web Storage 的缺点
+* 浏览器会为每个域分配独立的存储空间，但是在数据访问的时候不会检查脚本所在域和当前域是否相等。
+* 存储在本地的数据未加密且不会失效，极易会造成隐私泄漏。
