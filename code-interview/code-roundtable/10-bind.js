@@ -18,7 +18,7 @@ Function.prototype.myBind = function (context, args1) {
     return this instanceof bindFunc ? this : func.call(context, ...args1, ...args2)
   }
 
-  // Mark2: 需要修改原型，原型链的混成形式（寄生组合模式中原型的方式《高程 P172》）
+  // Mark2: 需要修改原型，原型链的混成形式（寄生组合模式中原型继承的方式《高程 P172》）
   bindFunc.prototype = Object.create(func.prototype)
   return bindFunc
 }
