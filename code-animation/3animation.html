@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>transform</title>
+        <style>
+          .animation {
+            margin: 0 auto;
+            width: 400px;
+            height: 400px;
+            background: url(img.jpeg) center no-repeat;
+            transform-style: preserve-3d;
+            animation: x-spin 10s linear infinite;
+          }
+
+          @keyframes x-spin {
+            0% {
+              transform: rotateY(0deg);
+            }
+            50% {
+              transform: rotateY(180deg);
+            }
+            100% {
+              transform: rotateY(360deg);
+            }
+          }
+        </style>
+    </style>
+    <body>
+      <div class="animation"></div>
+    </body>
+</html>
