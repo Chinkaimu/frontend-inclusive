@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>clear float</title>
+        <style type="text/css">
+        body {
+          padding: 20px;
+        }
+        .container {
+          background-color: red;
+          padding: 10px;
+        }
+        .float-item {
+          float: left;
+          width: 200px;
+          height: auto;
+        }
+        .end {
+          /* display: list-item;
+          list-style: none; */
+          clear: both;
+        }
+        </style>
+    </head>
+    <body>
+      <div class="container">
+        <div>块级元素具有换行特性，所以可以配合 clear 属性来清除浮动。</div>
+        <img class="float-item" src="./circles.jpeg">
+        <div class="end">This is the end of the container</div>
+      </div>
+    </body>
+</html>
